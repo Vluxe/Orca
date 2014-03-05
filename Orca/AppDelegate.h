@@ -9,9 +9,11 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import <Cocoa/Cocoa.h>
+#import "PacketCapture.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (nonatomic,strong)PacketCapture *pcap;
 
 @end

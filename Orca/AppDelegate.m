@@ -9,15 +9,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import "AppDelegate.h"
-#import "PacketCapture.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    PacketCapture *pcap = [[PacketCapture alloc] init];
-    [pcap capturePackets];
+    self.pcap = [[PacketCapture alloc] init];
+    [self.pcap capturePackets];
 }
 
 @end

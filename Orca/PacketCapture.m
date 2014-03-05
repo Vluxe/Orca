@@ -20,9 +20,12 @@
 #import <netinet/ip.h>
 #import <netinet/tcp.h>
 #import <netinet/udp.h>
+#include <pthread.h>
 
 @implementation PacketCapture
 
+static pthread_t pthread;
+static pcap_t* descr;
 ///////////////////////////////////////////////////////////////////////////////////////
 - (void)getInterfaces
 {
@@ -86,7 +89,6 @@
 {
     char *dev;
     char errbuf[PCAP_ERRBUF_SIZE];
-    pcap_t* descr;
     
     /* grab a device to peak into... */
     dev = pcap_lookupdev(errbuf);
@@ -116,9 +118,16 @@
     }
 
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        pcap_loop(descr, 0, packet_callback, NULL);
-    });
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+    //});
+    pthread_create(&pthread, NULL, captureLoop, (void*)descr);
+}
+///////////////////////////////////////////////////////////////////////////////////////
+void* captureLoop(void *descr)
+{
+    pcap_loop(descr, 0, packet_callback, NULL);
+    NSLog(@"loop finished?");
+    return NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_char *packet)
@@ -137,20 +146,23 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
     {
         char src[64];
         char dst[64];
-        //int sport = 0;
-        //int dport = 0;
+        int sport = 0;
+        int dport = 0;
         struct ip *iphdr = (struct ip*)(packet + ETHER_HDR_LEN);
         inet_ntop(AF_INET, &iphdr->ip_src, src, sizeof(src));
         inet_ntop(AF_INET, &iphdr->ip_dst, dst, sizeof(dst));
         int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
         
+        NSLog(@"ip header size: %d", ipHeaderSize);
+        NSLog(@"total length: %d",iphdr->ip_len);
         if(iphdr->ip_p == IPPROTO_UDP)
             NSLog(@"UDP action!");
         else if(iphdr->ip_p == IPPROTO_TCP) {
             NSLog(@"TCP action! ");
             struct tcphdr *tcpHeader = (struct tcphdr*) (iphdr + ipHeaderSize);
-            int sport = ntohs(tcpHeader->th_sport);
-            int dport = ntohs(tcpHeader->th_dport);
+            NSLog(@"src address is: %s and dst address is: %s\n", src, dst);
+            sport = ntohs(tcpHeader->th_sport);
+            dport = ntohs(tcpHeader->th_dport);
             NSLog(@"src address is: %s:%d and dst address is: %s:%d\n", src, sport, dst, dport);
         }
     }
