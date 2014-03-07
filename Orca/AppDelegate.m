@@ -16,7 +16,10 @@
 {
     // Insert code here to initialize your application
     self.pcap = [[PacketCapture alloc] init];
-    [self.pcap capturePackets];
+    NSArray *interfaces = [self.pcap getInterfaces];
+    for(NSString *interface in interfaces)
+        NSLog(@"inteface: %@", interface);
+    [self.pcap capturePackets:[interfaces firstObject]];
 }
 
 @end

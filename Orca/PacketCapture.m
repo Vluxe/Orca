@@ -20,88 +20,39 @@
 #import <netinet/ip.h>
 #import <netinet/tcp.h>
 #import <netinet/udp.h>
-#include <pthread.h>
 
 @implementation PacketCapture
 
-static pthread_t pthread;
 static pcap_t* descr;
 ///////////////////////////////////////////////////////////////////////////////////////
-- (void)getInterfaces
+- (NSArray *)getInterfaces
 {
-    char *dev; /* name of the device to use */
-    char *net; /* dot notation of the network address */
-    char *mask;/* dot notation of the network mask    */
-    int ret;   /* return code */
+    NSMutableArray *array = [NSMutableArray array];
     char errbuf[PCAP_ERRBUF_SIZE];
-    bpf_u_int32 netp; /* ip          */
-    bpf_u_int32 maskp;/* subnet mask */
-    struct in_addr addr;
+    pcap_if_t *devices;
+    int ret = pcap_findalldevs(&devices, errbuf);
     
-    /* ask pcap to find a valid device for use to sniff on */
-    dev = pcap_lookupdev(errbuf);
-    
-    /* error checking */
-    if(dev == NULL)
+    if(ret != 0)
     {
-        NSLog(@"%s\n",errbuf);
-        exit(1);
+        NSLog(@"[ERROR] %s", errbuf);
+        return nil;
     }
     
-    /* print out device name */
-    NSLog(@"DEV: %s\n",dev);
-    
-    /* ask pcap for the network address and mask of the device */
-    ret = pcap_lookupnet(dev,&netp,&maskp,errbuf);
-    
-    if(ret == -1)
+    struct pcap_if *device = devices;
+    while(device)
     {
-        NSLog(@"%s\n",errbuf);
-        exit(1);
+        [array addObject:[NSString stringWithUTF8String:device->name]];
+        device = device->next;
     }
     
-    /* get the network address in a human readable form */
-    addr.s_addr = netp;
-    net = inet_ntoa(addr);
-    
-    if(net == NULL)/* thanks Scott :-P */
-    {
-        perror("inet_ntoa");
-        exit(1);
-    }
-    
-    NSLog(@"NET: %s\n",net);
-    
-    /* do the same as above for the device's mask */
-    addr.s_addr = maskp;
-    mask = inet_ntoa(addr);
-    
-    if(mask == NULL)
-    {
-        perror("inet_ntoa");
-        exit(1);
-    }
-    
-    NSLog(@"MASK: %s\n",mask);
+    return [array copy];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-- (void)capturePackets
+- (void)capturePackets:(NSString *)interface
 {
-    char *dev;
     char errbuf[PCAP_ERRBUF_SIZE];
     
-    /* grab a device to peak into... */
-    dev = pcap_lookupdev(errbuf);
-    
-    if(dev == NULL)
-    {
-        NSLog(@"%s\n",errbuf);
-        exit(1);
-    }
-    
-    NSLog(@"DEV: %s\n",dev);
-    
-    descr = pcap_create(dev, errbuf);
+    descr = pcap_create([interface UTF8String], errbuf);
     
     if(descr == NULL)
     {
@@ -118,16 +69,9 @@ static pcap_t* descr;
     }
 
     
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-    //});
-    pthread_create(&pthread, NULL, captureLoop, (void*)descr);
-}
-///////////////////////////////////////////////////////////////////////////////////////
-void* captureLoop(void *descr)
-{
-    pcap_loop(descr, 0, packet_callback, NULL);
-    NSLog(@"loop finished?");
-    return NULL;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        pcap_loop(descr, 0, packet_callback, NULL);
+    });
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_char *packet)

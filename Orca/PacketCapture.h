@@ -12,7 +12,7 @@
 
 @interface PacketCapture : NSObject
 
-- (void)capturePackets;
-- (void)getInterfaces;
+- (void)capturePackets:(NSString *)interface;
+- (NSArray *)getInterfaces;
 
 @end
