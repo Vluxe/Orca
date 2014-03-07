@@ -657,14 +657,11 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="E430C537-9CF2-4010-B3BC-810B0B9B4998" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="ee5-Nd-k4i">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="IZv-eE-H0x"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="IeD-KA-ttr"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="6fJ-rJ-2QV"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="uza-Pd-l6t"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="6jT-F6-WlA"/>
-                    <toolbarItem implicitItemIdentifier="5D9512C6-F128-418E-A089-35361BB600C8" label="Start" paletteLabel="Start" tag="-1" image="NSNetwork" selectable="YES" id="StR-eH-21v" userLabel="Toolbar Item - start Item">
+                    <toolbarItem implicitItemIdentifier="5D9512C6-F128-418E-A089-35361BB600C8" label="Start" paletteLabel="Start" tag="-1" image="NSNetwork" id="StR-eH-21v" userLabel="Toolbar Item - start Item">
                         <connections>
-                            <action selector="startCapture:" target="494" id="ZNb-HE-pya"/>
+                            <action selector="startCapture:" target="494" id="OiT-In-BCa"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="E8736AFC-6C49-47CE-9A8B-57A955109BD7" label="" paletteLabel="" id="0Ia-3T-4qs" userLabel="Toolbar popup">
@@ -698,6 +695,7 @@
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="0Ia-3T-4qs"/>
+                    <toolbarItem reference="uza-Pd-l6t"/>
                     <toolbarItem reference="StR-eH-21v"/>
                     <toolbarItem reference="6jT-F6-WlA"/>
                     <toolbarItem reference="uqq-Mh-4ga"/>
@@ -706,6 +704,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="captureButton" destination="StR-eH-21v" id="OHl-1P-Eq4"/>
                 <outlet property="popButton" destination="Kcv-83-E64" id="0is-sq-jc6"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>

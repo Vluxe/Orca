@@ -17,5 +17,6 @@
 @property (nonatomic,strong)PacketCapture *pcap;
 
 @property (nonatomic,strong)IBOutlet NSPopUpButton *popButton;
+@property (nonatomic,strong)IBOutlet NSToolbarItem *captureButton;
 
 @end

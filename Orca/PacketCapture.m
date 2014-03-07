@@ -24,6 +24,7 @@
 @implementation PacketCapture
 
 static pcap_t* descr;
+static BOOL isCapture;
 ///////////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)getInterfaces
 {
@@ -51,6 +52,7 @@ static pcap_t* descr;
 ///////////////////////////////////////////////////////////////////////////////////////
 - (void)capturePackets:(NSString *)interface
 {
+    isCapture = YES;
     char errbuf[PCAP_ERRBUF_SIZE];
     
     descr = pcap_create([interface UTF8String], errbuf);
@@ -75,8 +77,23 @@ static pcap_t* descr;
     });
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+-(void)stopCapturing
+{
+    isCapture = NO;
+}
+///////////////////////////////////////////////////////////////////////////////////////
 void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_char *packet)
 {
+    if(!isCapture)
+    {
+        if(descr)
+        {
+            NSLog(@"stop capturing...");
+            pcap_breakloop(descr);
+            pcap_close(descr);
+            descr = nil;
+        }
+    }
     if(packet == NULL)
     {
         NSLog(@"Didn't grab packet\n");
@@ -114,6 +131,11 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
         NSLog(@"Ethernet type hex:%x dec:%d is an ARP packet\n", ntohs(eptr->ether_type), ntohs(eptr->ether_type));
     else
         NSLog(@"Ethernet type %x not IP\n", ntohs(eptr->ether_type));
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(BOOL)isCapturing
+{
+    return isCapture;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 @end

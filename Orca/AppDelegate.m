@@ -24,9 +24,19 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)startCapture:(id)sender
 {
-    NSString *interface = self.popButton.selectedItem.title;
-    NSLog(@"starting capture on: %@",interface);
-    [self.pcap capturePackets:interface];
+    if(self.pcap.isCapturing)
+    {
+        NSLog(@"stopping capture");
+        self.captureButton.label = self.captureButton.paletteLabel = NSLocalizedString(@"Start", nil);
+        [self.pcap stopCapturing];
+    }
+    else
+    {
+        self.captureButton.label = self.captureButton.paletteLabel = NSLocalizedString(@"Stop", nil);
+        NSString *interface = self.popButton.selectedItem.title;
+        NSLog(@"starting capture on: %@",interface);
+        [self.pcap capturePackets:interface];
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 
