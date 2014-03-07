@@ -45,6 +45,7 @@ static pcap_t* descr;
         device = device->next;
     }
     
+    pcap_freealldevs(devices);
     return [array copy];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -96,7 +97,6 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
         inet_ntop(AF_INET, &iphdr->ip_src, src, sizeof(src));
         inet_ntop(AF_INET, &iphdr->ip_dst, dst, sizeof(dst));
         int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
-        NSLog(@"ip_tos: %u", iphdr->ip_tos);
         
         NSLog(@"total length: %d",iphdr->ip_len);
         if(iphdr->ip_p == IPPROTO_UDP)

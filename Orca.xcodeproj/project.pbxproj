@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B1B3DD518C95DEC006839B4 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1B3DD418C95DEC006839B4 /* TCPPacket.m */; };
 		6BC383B818C425C400F67B8A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC383B718C425C400F67B8A /* Cocoa.framework */; };
 		6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BC383C018C425C400F67B8A /* InfoPlist.strings */; };
 		6BC383C418C425C400F67B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC383C318C425C400F67B8A /* main.m */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B1B3DD318C95DEC006839B4 /* TCPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPPacket.h; sourceTree = "<group>"; };
+		6B1B3DD418C95DEC006839B4 /* TCPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPPacket.m; sourceTree = "<group>"; };
 		6BC383B418C425C400F67B8A /* Orca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC383B718C425C400F67B8A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6BC383BA18C425C400F67B8A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,8 @@
 				6BC383BE18C425C400F67B8A /* Supporting Files */,
 				6BC383EB18C425EB00F67B8A /* PacketCapture.h */,
 				6BC383EC18C425EB00F67B8A /* PacketCapture.m */,
+				6B1B3DD318C95DEC006839B4 /* TCPPacket.h */,
+				6B1B3DD418C95DEC006839B4 /* TCPPacket.m */,
 			);
 			path = Orca;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
+				6B1B3DD518C95DEC006839B4 /* TCPPacket.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
 				6BC383ED18C425EB00F67B8A /* PacketCapture.m in Sources */,
 			);
@@ -474,6 +480,7 @@
 				6BC383E718C425C400F67B8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6BC383E818C425C400F67B8A /* Build configuration list for PBXNativeTarget "OrcaTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +489,7 @@
 				6BC383EA18C425C400F67B8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
