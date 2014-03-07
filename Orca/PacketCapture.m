@@ -96,26 +96,22 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
         inet_ntop(AF_INET, &iphdr->ip_src, src, sizeof(src));
         inet_ntop(AF_INET, &iphdr->ip_dst, dst, sizeof(dst));
         int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
+        NSLog(@"ip_tos: %u", iphdr->ip_tos);
         
-        NSLog(@"ip header size: %d", ipHeaderSize);
         NSLog(@"total length: %d",iphdr->ip_len);
         if(iphdr->ip_p == IPPROTO_UDP)
             NSLog(@"UDP action!");
-        else if(iphdr->ip_p == IPPROTO_TCP) {
+        else if(iphdr->ip_p == IPPROTO_TCP)
+        {
             NSLog(@"TCP action! ");
             struct tcphdr *tcpHeader = (struct tcphdr*) (iphdr + ipHeaderSize);
-            NSLog(@"src address is: %s and dst address is: %s\n", src, dst);
             sport = ntohs(tcpHeader->th_sport);
             dport = ntohs(tcpHeader->th_dport);
             NSLog(@"src address is: %s:%d and dst address is: %s:%d\n", src, sport, dst, dport);
         }
     }
     else if (ntohs (eptr->ether_type) == ETHERTYPE_ARP)
-    {
-        NSLog(@"Ethernet type hex:%x dec:%d is an ARP packet\n",
-               ntohs(eptr->ether_type),
-               ntohs(eptr->ether_type));
-    }
+        NSLog(@"Ethernet type hex:%x dec:%d is an ARP packet\n", ntohs(eptr->ether_type), ntohs(eptr->ether_type));
     else
         NSLog(@"Ethernet type %x not IP\n", ntohs(eptr->ether_type));
 }
