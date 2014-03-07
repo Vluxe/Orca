@@ -16,4 +16,6 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic,strong)PacketCapture *pcap;
 
+@property (nonatomic,strong)IBOutlet NSPopUpButton *popButton;
+
 @end
