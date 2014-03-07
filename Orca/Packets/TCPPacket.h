@@ -9,8 +9,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import <Foundation/Foundation.h>
+#import "IPHeader.h"
 
-@interface TCPPacket : NSObject
+@interface TCPPacket : IPHeader
 
 @property(nonatomic, copy)NSString *sourceIP;
 @property(nonatomic, copy)NSString *dstIP;

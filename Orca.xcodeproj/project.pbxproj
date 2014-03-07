@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B1B3DD518C95DEC006839B4 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1B3DD418C95DEC006839B4 /* TCPPacket.m */; };
+		6B1B3DD918C97247006839B4 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1B3DD818C97247006839B4 /* TCPPacket.m */; };
+		6B1B3DDC18C987C7006839B4 /* EthernetHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1B3DDB18C987C7006839B4 /* EthernetHeader.m */; };
+		6B1B3DDF18C987FE006839B4 /* IPHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1B3DDE18C987FE006839B4 /* IPHeader.m */; };
 		6BC383B818C425C400F67B8A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC383B718C425C400F67B8A /* Cocoa.framework */; };
 		6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BC383C018C425C400F67B8A /* InfoPlist.strings */; };
 		6BC383C418C425C400F67B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC383C318C425C400F67B8A /* main.m */; };
@@ -34,8 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6B1B3DD318C95DEC006839B4 /* TCPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPPacket.h; sourceTree = "<group>"; };
-		6B1B3DD418C95DEC006839B4 /* TCPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPPacket.m; sourceTree = "<group>"; };
+		6B1B3DD718C97247006839B4 /* TCPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TCPPacket.h; path = Packets/TCPPacket.h; sourceTree = "<group>"; };
+		6B1B3DD818C97247006839B4 /* TCPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCPPacket.m; path = Packets/TCPPacket.m; sourceTree = "<group>"; };
+		6B1B3DDA18C987C7006839B4 /* EthernetHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EthernetHeader.h; path = Packets/EthernetHeader.h; sourceTree = "<group>"; };
+		6B1B3DDB18C987C7006839B4 /* EthernetHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EthernetHeader.m; path = Packets/EthernetHeader.m; sourceTree = "<group>"; };
+		6B1B3DDD18C987FE006839B4 /* IPHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPHeader.h; path = Packets/IPHeader.h; sourceTree = "<group>"; };
+		6B1B3DDE18C987FE006839B4 /* IPHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IPHeader.m; path = Packets/IPHeader.m; sourceTree = "<group>"; };
 		6BC383B418C425C400F67B8A /* Orca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC383B718C425C400F67B8A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6BC383BA18C425C400F67B8A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -82,6 +88,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B1B3DD618C97212006839B4 /* Packets */ = {
+			isa = PBXGroup;
+			children = (
+				6B1B3DDA18C987C7006839B4 /* EthernetHeader.h */,
+				6B1B3DDB18C987C7006839B4 /* EthernetHeader.m */,
+				6B1B3DDD18C987FE006839B4 /* IPHeader.h */,
+				6B1B3DDE18C987FE006839B4 /* IPHeader.m */,
+				6B1B3DD718C97247006839B4 /* TCPPacket.h */,
+				6B1B3DD818C97247006839B4 /* TCPPacket.m */,
+			);
+			name = Packets;
+			sourceTree = "<group>";
+		};
 		6BC383AB18C425C400F67B8A = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +144,7 @@
 		6BC383BD18C425C400F67B8A /* Orca */ = {
 			isa = PBXGroup;
 			children = (
+				6B1B3DD618C97212006839B4 /* Packets */,
 				6BC383C918C425C400F67B8A /* AppDelegate.h */,
 				6BC383CA18C425C400F67B8A /* AppDelegate.m */,
 				6BC383CC18C425C400F67B8A /* MainMenu.xib */,
@@ -132,8 +152,6 @@
 				6BC383BE18C425C400F67B8A /* Supporting Files */,
 				6BC383EB18C425EB00F67B8A /* PacketCapture.h */,
 				6BC383EC18C425EB00F67B8A /* PacketCapture.m */,
-				6B1B3DD318C95DEC006839B4 /* TCPPacket.h */,
-				6B1B3DD418C95DEC006839B4 /* TCPPacket.m */,
 			);
 			path = Orca;
 			sourceTree = "<group>";
@@ -267,9 +285,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
-				6B1B3DD518C95DEC006839B4 /* TCPPacket.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
+				6B1B3DD918C97247006839B4 /* TCPPacket.m in Sources */,
+				6B1B3DDF18C987FE006839B4 /* IPHeader.m in Sources */,
 				6BC383ED18C425EB00F67B8A /* PacketCapture.m in Sources */,
+				6B1B3DDC18C987C7006839B4 /* EthernetHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
