@@ -44,7 +44,7 @@
         self.tcpSize = @(size);
         self.srcPort = @(ntohs(tcpHeader->th_sport));
         self.dstPort = @(ntohs(tcpHeader->th_dport));
-        self.payload = [NSData dataWithBytes:(packet + size) length:[self.totalSize intValue]-size];
+        self.payload = [NSData dataWithBytes:(packet + offset) length:[self.totalSize intValue]-offset];
     }
     return self;
 }
