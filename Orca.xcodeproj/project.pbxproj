@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CAE397D18D917F80054B955 /* EthernetPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE397C18D917F80054B955 /* EthernetPacket.m */; };
+		5CAE398018D918FB0054B955 /* IPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE397F18D918FB0054B955 /* IPPacket.m */; };
 		6B1B3DD518C95DEC006839B4 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1B3DD418C95DEC006839B4 /* TCPPacket.m */; };
 		6BC383B818C425C400F67B8A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC383B718C425C400F67B8A /* Cocoa.framework */; };
 		6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BC383C018C425C400F67B8A /* InfoPlist.strings */; };
@@ -34,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5CAE397B18D917F80054B955 /* EthernetPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetPacket.h; sourceTree = "<group>"; };
+		5CAE397C18D917F80054B955 /* EthernetPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EthernetPacket.m; sourceTree = "<group>"; };
+		5CAE397E18D918FB0054B955 /* IPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPacket.h; sourceTree = "<group>"; };
+		5CAE397F18D918FB0054B955 /* IPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPacket.m; sourceTree = "<group>"; };
 		6B1B3DD318C95DEC006839B4 /* TCPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPPacket.h; sourceTree = "<group>"; };
 		6B1B3DD418C95DEC006839B4 /* TCPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPPacket.m; sourceTree = "<group>"; };
 		6BC383B418C425C400F67B8A /* Orca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orca.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +140,10 @@
 				6BC383EC18C425EB00F67B8A /* PacketCapture.m */,
 				6B1B3DD318C95DEC006839B4 /* TCPPacket.h */,
 				6B1B3DD418C95DEC006839B4 /* TCPPacket.m */,
+				5CAE397E18D918FB0054B955 /* IPPacket.h */,
+				5CAE397F18D918FB0054B955 /* IPPacket.m */,
+				5CAE397B18D917F80054B955 /* EthernetPacket.h */,
+				5CAE397C18D917F80054B955 /* EthernetPacket.m */,
 			);
 			path = Orca;
 			sourceTree = "<group>";
@@ -269,6 +279,8 @@
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
 				6B1B3DD518C95DEC006839B4 /* TCPPacket.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
+				5CAE397D18D917F80054B955 /* EthernetPacket.m in Sources */,
+				5CAE398018D918FB0054B955 /* IPPacket.m in Sources */,
 				6BC383ED18C425EB00F67B8A /* PacketCapture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

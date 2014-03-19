@@ -18,8 +18,10 @@
 #import <arpa/inet.h>
 #import <netinet/if_ether.h>
 #import <netinet/ip.h>
+#import <netinet/ip6.h>
 #import <netinet/tcp.h>
 #import <netinet/udp.h>
+#import "TCPPacket.h"
 
 @implementation PacketCapture
 
@@ -106,26 +108,41 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
     /* check to see if we have an ip packet */
     if (ntohs(eptr->ether_type) == ETHERTYPE_IP)
     {
-        char src[64];
-        char dst[64];
-        int sport = 0;
-        int dport = 0;
         struct ip *iphdr = (struct ip*)(packet + ETHER_HDR_LEN);
-        inet_ntop(AF_INET, &iphdr->ip_src, src, sizeof(src));
-        inet_ntop(AF_INET, &iphdr->ip_dst, dst, sizeof(dst));
-        int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
         
-        NSLog(@"total length: %d",iphdr->ip_len);
+        //NSLog(@"total length: %d",iphdr->ip_len);
+        
         if(iphdr->ip_p == IPPROTO_UDP)
             NSLog(@"UDP action!");
         else if(iphdr->ip_p == IPPROTO_TCP)
         {
             NSLog(@"TCP action! ");
-            struct tcphdr *tcpHeader = (struct tcphdr*) (iphdr + ipHeaderSize);
-            sport = ntohs(tcpHeader->th_sport);
-            dport = ntohs(tcpHeader->th_dport);
-            NSLog(@"src address is: %s:%d and dst address is: %s:%d\n", src, sport, dst, dport);
+            TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet];
+            NSLog(@"tcpObject: %@",tcpObject);
+            
+            
+            //struct tcphdr *tcpHeader = (struct tcphdr*) (iphdr + ipHeaderSize);
+            //int tcpSize = tcpHeader->th_off*sizeof(unsigned int);
+            //NSLog(@"src address is: %s:%d and dst address is: %s:%d\n", src, sport, dst, dport);
+            //unsigned char *payload = (unsigned char*)(tcpHeader + tcpSize);
+            //NSLog(@"TCP payload: %s",payload);
         }
+    }
+    else if (ntohs(eptr->ether_type) == ETHERTYPE_IPV6)
+    {
+        struct ip6_hdr *iphdr = (struct ip6_hdr*)(packet + ETHER_HDR_LEN);
+        if(iphdr->ip6_nxt == IPPROTO_UDP)
+        {
+            NSLog(@"UDP v6 action!");
+            //IPPacket *pacObject = [[IPPacket alloc] initWithPacket:(u_char*)packet];
+            //NSLog(@"%@",pacObject);
+        }
+        else if(iphdr->ip6_nxt == IPPROTO_TCP)
+        {
+            TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet];
+            NSLog(@"tcpObject v6: %@",tcpObject);
+        }
+        
     }
     else if (ntohs (eptr->ether_type) == ETHERTYPE_ARP)
         NSLog(@"Ethernet type hex:%x dec:%d is an ARP packet\n", ntohs(eptr->ether_type), ntohs(eptr->ether_type));

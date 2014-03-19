@@ -9,12 +9,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import <Foundation/Foundation.h>
+#import "IPPacket.h"
 
-@interface TCPPacket : NSObject
+@interface TCPPacket : IPPacket
 
-@property(nonatomic, copy)NSString *sourceIP;
-@property(nonatomic, copy)NSString *dstIP;
-@property(nonatomic, strong)NSNumber *sourcePort;
+@property(nonatomic, strong)NSNumber *tcpSize;
+@property(nonatomic, strong)NSNumber *srcPort;
 @property(nonatomic, strong)NSNumber *dstPort;
 @property(nonatomic, strong)NSNumber *sequence;
 @property(nonatomic, strong)NSNumber *acknowledgement;
@@ -23,5 +23,6 @@
 @property(nonatomic, strong)NSNumber *window;
 @property(nonatomic, strong)NSNumber *checksum;
 @property(nonatomic, strong)NSNumber *urgentPointer;
+@property(nonatomic,strong)NSData *payload;
 
 @end
