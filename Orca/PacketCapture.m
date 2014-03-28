@@ -75,7 +75,9 @@ static BOOL isCapture;
 
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        pcap_loop(descr, 0, packet_callback, NULL);
+        @autoreleasepool {
+            pcap_loop(descr, 0, packet_callback, NULL);
+        }
     });
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -110,8 +112,6 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
     {
         struct ip *iphdr = (struct ip*)(packet + ETHER_HDR_LEN);
         
-        //NSLog(@"total length: %d",iphdr->ip_len);
-        
         if(iphdr->ip_p == IPPROTO_UDP)
             NSLog(@"UDP action!");
         else if(iphdr->ip_p == IPPROTO_TCP)
@@ -119,13 +119,6 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
             NSLog(@"TCP action! ");
             TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet];
             NSLog(@"tcpObject: %@",tcpObject);
-            
-            
-            //struct tcphdr *tcpHeader = (struct tcphdr*) (iphdr + ipHeaderSize);
-            //int tcpSize = tcpHeader->th_off*sizeof(unsigned int);
-            //NSLog(@"src address is: %s:%d and dst address is: %s:%d\n", src, sport, dst, dport);
-            //unsigned char *payload = (unsigned char*)(tcpHeader + tcpSize);
-            //NSLog(@"TCP payload: %s",payload);
         }
     }
     else if (ntohs(eptr->ether_type) == ETHERTYPE_IPV6)
