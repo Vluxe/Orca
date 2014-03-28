@@ -33,7 +33,7 @@
             inet_ntop(AF_INET, &iphdr->ip_dst, dst, sizeof(dst));
             self.srcIP = [[NSString alloc] initWithUTF8String:src];
             self.dstIP = [[NSString alloc] initWithUTF8String:dst];
-            self.totalSize = @(iphdr->ip_len);
+            self.totalSize = @(htons(iphdr->ip_len));
             //int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
             //NSLog(@"total length: %d",iphdr->ip_len);
             
