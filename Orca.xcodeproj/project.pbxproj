@@ -10,6 +10,11 @@
 		5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398318D94DDA0054B955 /* EthernetPacket.m */; };
 		5CAE398918D94DDA0054B955 /* IPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398518D94DDA0054B955 /* IPPacket.m */; };
 		5CAE398A18D94DDA0054B955 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398718D94DDA0054B955 /* TCPPacket.m */; };
+		5CAE39AF18E255340054B955 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5CAE39A818E255340054B955 /* .gitignore */; };
+		5CAE39B018E255340054B955 /* ACTableSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE39AA18E255340054B955 /* ACTableSource.m */; };
+		5CAE39B118E255340054B955 /* ACTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE39AC18E255340054B955 /* ACTableViewCell.m */; };
+		5CAE39B218E255340054B955 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5CAE39AD18E255340054B955 /* LICENSE */; };
+		5CAE39B318E255340054B955 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CAE39AE18E255340054B955 /* README.md */; };
 		6B1B3DD918C97247006839B4 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		6BC383B818C425C400F67B8A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC383B718C425C400F67B8A /* Cocoa.framework */; };
 		6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BC383C018C425C400F67B8A /* InfoPlist.strings */; };
@@ -43,6 +48,13 @@
 		5CAE398518D94DDA0054B955 /* IPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPPacket.m; sourceTree = "<group>"; };
 		5CAE398618D94DDA0054B955 /* TCPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPPacket.h; sourceTree = "<group>"; };
 		5CAE398718D94DDA0054B955 /* TCPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPPacket.m; sourceTree = "<group>"; };
+		5CAE39A818E255340054B955 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5CAE39A918E255340054B955 /* ACTableSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTableSource.h; sourceTree = "<group>"; };
+		5CAE39AA18E255340054B955 /* ACTableSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACTableSource.m; sourceTree = "<group>"; };
+		5CAE39AB18E255340054B955 /* ACTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTableViewCell.h; sourceTree = "<group>"; };
+		5CAE39AC18E255340054B955 /* ACTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACTableViewCell.m; sourceTree = "<group>"; };
+		5CAE39AD18E255340054B955 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5CAE39AE18E255340054B955 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		6BC383B418C425C400F67B8A /* Orca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC383B718C425C400F67B8A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6BC383BA18C425C400F67B8A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -100,6 +112,21 @@
 				5CAE398718D94DDA0054B955 /* TCPPacket.m */,
 			);
 			path = Packets;
+			sourceTree = "<group>";
+		};
+		5CAE39A718E255340054B955 /* ACDataViews */ = {
+			isa = PBXGroup;
+			children = (
+				5CAE39A818E255340054B955 /* .gitignore */,
+				5CAE39A918E255340054B955 /* ACTableSource.h */,
+				5CAE39AA18E255340054B955 /* ACTableSource.m */,
+				5CAE39AB18E255340054B955 /* ACTableViewCell.h */,
+				5CAE39AC18E255340054B955 /* ACTableViewCell.m */,
+				5CAE39AD18E255340054B955 /* LICENSE */,
+				5CAE39AE18E255340054B955 /* README.md */,
+			);
+			name = ACDataViews;
+			path = ../../ACDataViews;
 			sourceTree = "<group>";
 		};
 		6B1B3DD618C97212006839B4 /* Packets */ = {
@@ -160,6 +187,7 @@
 				6BC383BE18C425C400F67B8A /* Supporting Files */,
 				6BC383EB18C425EB00F67B8A /* PacketCapture.h */,
 				6BC383EC18C425EB00F67B8A /* PacketCapture.m */,
+				5CAE39A718E255340054B955 /* ACDataViews */,
 				5CAE398118D94DDA0054B955 /* Packets */,
 			);
 			path = Orca;
@@ -271,7 +299,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CAE39B218E255340054B955 /* LICENSE in Resources */,
+				5CAE39AF18E255340054B955 /* .gitignore in Resources */,
 				6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */,
+				5CAE39B318E255340054B955 /* README.md in Resources */,
 				6BC383D018C425C400F67B8A /* Images.xcassets in Resources */,
 				6BC383C818C425C400F67B8A /* Credits.rtf in Resources */,
 				6BC383CE18C425C400F67B8A /* MainMenu.xib in Resources */,
@@ -296,10 +327,12 @@
 				5CAE398A18D94DDA0054B955 /* TCPPacket.m in Sources */,
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
+				5CAE39B118E255340054B955 /* ACTableViewCell.m in Sources */,
 				6B1B3DD918C97247006839B4 /* (null) in Sources */,
 				5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */,
 				5CAE398918D94DDA0054B955 /* IPPacket.m in Sources */,
 				6BC383ED18C425EB00F67B8A /* PacketCapture.m in Sources */,
+				5CAE39B018E255340054B955 /* ACTableSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
