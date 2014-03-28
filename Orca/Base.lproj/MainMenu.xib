@@ -670,14 +670,14 @@
                                             <rect key="frame" x="1" y="17" width="750" height="190"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="mCh-KN-inb" viewBased="YES" id="bap-7Z-Oq9">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="mCh-KN-inb" viewBased="YES" id="bap-7Z-Oq9">
                                                     <rect key="frame" x="0.0" y="0.0" width="750" height="190"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="148.234375" minWidth="40" maxWidth="1000" id="xVZ-ch-L1q">
+                                                        <tableColumn identifier="time" width="148.234375" minWidth="40" maxWidth="1000" id="xVZ-ch-L1q">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Time">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -710,7 +710,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="211.07421875" minWidth="10" maxWidth="3.4028234663852886e+38" id="LYJ-tF-g1P">
+                                                        <tableColumn identifier="source" width="211.07421875" minWidth="10" maxWidth="3.4028234663852886e+38" id="LYJ-tF-g1P">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Source">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -743,7 +743,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="153.44921875" minWidth="10" maxWidth="3.4028234663852886e+38" id="xeg-R6-1dq">
+                                                        <tableColumn identifier="destination" width="153.44921875" minWidth="10" maxWidth="3.4028234663852886e+38" id="xeg-R6-1dq">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Destination">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -776,7 +776,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn width="226" minWidth="10" maxWidth="3.4028234663852886e+38" id="lfU-LJ-vbk">
+                                                        <tableColumn identifier="protocol" width="226" minWidth="10" maxWidth="3.4028234663852886e+38" id="lfU-LJ-vbk">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Protocol">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -904,7 +904,7 @@
             <connections>
                 <outlet property="captureButton" destination="StR-eH-21v" id="OHl-1P-Eq4"/>
                 <outlet property="popButton" destination="Kcv-83-E64" id="0is-sq-jc6"/>
-                <outlet property="tableView" destination="bap-7Z-Oq9" id="Fxk-Xq-N5h"/>
+                <outlet property="tableView" destination="bap-7Z-Oq9" id="hCB-WG-woL"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>

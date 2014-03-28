@@ -22,4 +22,9 @@
 @property (nonatomic,strong)IBOutlet NSTableView *tableView;
 @property (nonatomic,strong)ACTableSource *dataSource;
 
+@property (nonatomic,strong)NSMutableArray *time;
+@property (nonatomic,strong)NSMutableArray *source;
+@property (nonatomic,strong)NSMutableArray *destination;
+@property (nonatomic,strong)NSMutableArray *protocol;
+
 @end

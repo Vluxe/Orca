@@ -9,6 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import "AppDelegate.h"
+#import "TextTableViewCell.h"
 
 @implementation AppDelegate
 
@@ -16,14 +17,33 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.pcap = [[PacketCapture alloc] init];
-    NSArray *interfaces = [self.pcap getInterfaces];
-    for(NSString *interface in interfaces)
-        NSLog(@"inteface: %@", interface);
-    [self.popButton addItemsWithTitles:interfaces];
+    [self.popButton addItemsWithTitles:[self.pcap getInterfaces]];
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)awakeFromNib
+{
     self.dataSource = [[ACTableSource alloc] init];
     self.dataSource.delegate = self;
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self.dataSource;
+    
+    self.time = [NSMutableArray new];
+    self.source = [NSMutableArray new];
+    self.destination = [NSMutableArray new];
+    self.protocol = [NSMutableArray new];
+    
+    [self.dataSource bindArrays:@[self.time,self.source,self.destination,self.protocol]
+                    toTableView:self.tableView];
+    
+    //fake test!!!
+    for(int i = 0; i < 10; i++)
+    {
+        [self.time addObject:@"random time"];
+        [self.source addObject:@"random src"];
+        [self.destination addObject:@"random dest"];
+        [self.protocol addObject:@"random protocol"];
+    }
+    [self.tableView reloadData];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)startCapture:(id)sender
@@ -45,7 +65,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 -(Class)classForObject:(id)object
 {
-    return nil;
+    return [TextTableViewCell class];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)dealloc

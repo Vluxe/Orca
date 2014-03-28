@@ -1,0 +1,17 @@
+///////////////////////////////////////////////////////////////////////////////////////
+//
+//  TextTableViewCell.h
+//  Orca
+//
+//  Created by Dalton Cherry on 3/27/14.
+//  Copyright (c) 2014 Vluxe. All rights reserved.
+//
+///////////////////////////////////////////////////////////////////////////////////////
+
+#import "ACTableViewCell.h"
+
+@interface TextTableViewCell : ACTableViewCell
+
+@property(nonatomic,strong)NSTextField *textLabel;
+
+@end
