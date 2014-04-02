@@ -63,6 +63,22 @@
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+-(IBAction)saveCapture:(id)sender
+{
+    NSSavePanel *savePanel = [[NSSavePanel alloc] init];
+    if ([savePanel runModal] == NSOKButton)
+    {
+        NSURL *selectedFileName = [savePanel URL];
+        if(![[selectedFileName pathExtension] isEqualToString:@"pcap"])
+            selectedFileName = [selectedFileName URLByAppendingPathExtension:@"pcap"];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+            @autoreleasepool {
+                [self.pcap saveCapture:selectedFileName];
+            }
+        });
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////
 -(Class)classForObject:(id)object
 {
     return [TextTableViewCell class];

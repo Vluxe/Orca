@@ -17,9 +17,9 @@
 @implementation IPPacket
 
 ///////////////////////////////////////////////////////////////////////////////////////
-- (instancetype)initWithPacket:(u_char *)packet
+- (instancetype)initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader
 {
-    if(self = [super initWithPacket:packet])
+    if(self = [super initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader])
     {
         struct ether_header *eptr = (struct ether_header *) packet;
         
