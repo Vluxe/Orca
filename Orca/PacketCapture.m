@@ -23,10 +23,28 @@
 #import <netinet/udp.h>
 #import "TCPPacket.h"
 
+@interface PacketCapture ()
+
+@property(nonatomic, strong)NSMutableArray *packets;
+
+@end
+
 @implementation PacketCapture
 
 static pcap_t* descr;
 static BOOL isCapture;
+static id c_self; //some hacky goodness to call self from a c method.
+
+///////////////////////////////////////////////////////////////////////////////////////
+- (id)init
+{
+    if(self = [super init])
+    {
+        c_self = self;
+        self.packets = [NSMutableArray array];
+    }
+    return self;
+}
 ///////////////////////////////////////////////////////////////////////////////////////
 - (NSArray *)getInterfaces
 {
@@ -81,13 +99,9 @@ static BOOL isCapture;
     });
 }
 ///////////////////////////////////////////////////////////////////////////////////////
--(void)stopCapturing
+void cStopCapturing()
 {
     isCapture = NO;
-}
-///////////////////////////////////////////////////////////////////////////////////////
-void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_char *packet)
-{
     if(!isCapture)
     {
         if(descr)
@@ -98,6 +112,17 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
             descr = nil;
         }
     }
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)stopCapturing
+{
+    cStopCapturing();
+}
+///////////////////////////////////////////////////////////////////////////////////////
+void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_char *packet)
+{
+    if(!isCapture)
+        return;
     if(packet == NULL)
     {
         NSLog(@"Didn't grab packet\n");
@@ -117,7 +142,8 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
         else if(iphdr->ip_p == IPPROTO_TCP)
         {
             NSLog(@"TCP action! ");
-            TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet];
+            TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet packetHeader:pkthdr];
+            [[c_self packets] addObject:tcpObject];
             NSLog(@"tcpObject: %@",tcpObject);
         }
     }
@@ -132,7 +158,8 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
         }
         else if(iphdr->ip6_nxt == IPPROTO_TCP)
         {
-            TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet];
+            TCPPacket *tcpObject = [[TCPPacket alloc] initWithPacket:(u_char*)packet packetHeader:pkthdr];
+            [[c_self packets] addObject:tcpObject];
             NSLog(@"tcpObject v6: %@",tcpObject);
         }
         
@@ -146,6 +173,18 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
 -(BOOL)isCapturing
 {
     return isCapture;
+}
+///////////////////////////////////////////////////////////////////////////////////////
+- (void)saveCapture:(NSURL *)fileURL
+{
+    if(descr)
+    {
+        pcap_dumper_t *dump = pcap_dump_open(descr, [[fileURL path] UTF8String]);
+        for(EthernetPacket *packet in self.packets)
+            pcap_dump((u_char *)dump, packet.packetHeader, packet.rawData);
+        pcap_dump_flush(dump);
+        [self stopCapturing];
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 @end

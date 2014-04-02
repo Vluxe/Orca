@@ -34,4 +34,9 @@
  */
 -(void)stopCapturing;
 
+/**
+ save the packet capture to disk.
+ */
+- (void)saveCapture:(NSURL *)fileURL;
+
 @end
