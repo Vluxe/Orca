@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		075A3540C8BD48D590EE809A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E517D759174FED90843705 /* libPods.a */; };
+		5C8EE65518EBB81200F21EF6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5C8EE65218EBB81200F21EF6 /* .gitignore */; };
+		5C8EE65618EBB81200F21EF6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 5C8EE65318EBB81200F21EF6 /* LICENSE */; };
+		5C8EE65718EBB81200F21EF6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C8EE65418EBB81200F21EF6 /* README.md */; };
+		5C8EE65A18EBB84000F21EF6 /* ACView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8EE65918EBB84000F21EF6 /* ACView.m */; };
+		5C8EE65D18EBBF8600F21EF6 /* NSColor+ACColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8EE65C18EBBF8600F21EF6 /* NSColor+ACColor.m */; };
+		5C8EE66318EBC8FE00F21EF6 /* ACLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C8EE66218EBC8FE00F21EF6 /* ACLabel.m */; };
 		5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398318D94DDA0054B955 /* EthernetPacket.m */; };
 		5CAE398918D94DDA0054B955 /* IPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398518D94DDA0054B955 /* IPPacket.m */; };
 		5CAE398A18D94DDA0054B955 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398718D94DDA0054B955 /* TCPPacket.m */; };
@@ -39,6 +45,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C8EE65218EBB81200F21EF6 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5C8EE65318EBB81200F21EF6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5C8EE65418EBB81200F21EF6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		5C8EE65818EBB84000F21EF6 /* ACView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACView.h; sourceTree = "<group>"; };
+		5C8EE65918EBB84000F21EF6 /* ACView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACView.m; sourceTree = "<group>"; };
+		5C8EE65B18EBBF8600F21EF6 /* NSColor+ACColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+ACColor.h"; sourceTree = "<group>"; };
+		5C8EE65C18EBBF8600F21EF6 /* NSColor+ACColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+ACColor.m"; sourceTree = "<group>"; };
+		5C8EE66118EBC8FE00F21EF6 /* ACLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACLabel.h; sourceTree = "<group>"; };
+		5C8EE66218EBC8FE00F21EF6 /* ACLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACLabel.m; sourceTree = "<group>"; };
 		5CAE398218D94DDA0054B955 /* EthernetPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetPacket.h; sourceTree = "<group>"; };
 		5CAE398318D94DDA0054B955 /* EthernetPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EthernetPacket.m; sourceTree = "<group>"; };
 		5CAE398418D94DDA0054B955 /* IPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPacket.h; sourceTree = "<group>"; };
@@ -96,6 +111,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C8EE65118EBB81200F21EF6 /* NSCustomizeKit */ = {
+			isa = PBXGroup;
+			children = (
+				5C8EE65218EBB81200F21EF6 /* .gitignore */,
+				5C8EE65318EBB81200F21EF6 /* LICENSE */,
+				5C8EE65418EBB81200F21EF6 /* README.md */,
+				5C8EE65818EBB84000F21EF6 /* ACView.h */,
+				5C8EE65918EBB84000F21EF6 /* ACView.m */,
+				5C8EE65B18EBBF8600F21EF6 /* NSColor+ACColor.h */,
+				5C8EE65C18EBBF8600F21EF6 /* NSColor+ACColor.m */,
+				5C8EE66118EBC8FE00F21EF6 /* ACLabel.h */,
+				5C8EE66218EBC8FE00F21EF6 /* ACLabel.m */,
+			);
+			name = NSCustomizeKit;
+			path = ../../NSCustomizeKit;
+			sourceTree = "<group>";
+		};
 		5CAE398118D94DDA0054B955 /* Packets */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +204,7 @@
 				5CAE39D918E516250054B955 /* TextTableViewCell.h */,
 				5CAE39DA18E516250054B955 /* TextTableViewCell.m */,
 				5CAE398118D94DDA0054B955 /* Packets */,
+				5C8EE65118EBB81200F21EF6 /* NSCustomizeKit */,
 			);
 			path = Orca;
 			sourceTree = "<group>";
@@ -284,7 +317,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C8EE65618EBB81200F21EF6 /* LICENSE in Resources */,
+				5C8EE65518EBB81200F21EF6 /* .gitignore in Resources */,
 				6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */,
+				5C8EE65718EBB81200F21EF6 /* README.md in Resources */,
 				6BC383D018C425C400F67B8A /* Images.xcassets in Resources */,
 				6BC383C818C425C400F67B8A /* Credits.rtf in Resources */,
 				6BC383CE18C425C400F67B8A /* MainMenu.xib in Resources */,
@@ -340,8 +376,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CAE398A18D94DDA0054B955 /* TCPPacket.m in Sources */,
+				5C8EE66318EBC8FE00F21EF6 /* ACLabel.m in Sources */,
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
+				5C8EE65A18EBB84000F21EF6 /* ACView.m in Sources */,
 				5CAE39DB18E516250054B955 /* TextTableViewCell.m in Sources */,
+				5C8EE65D18EBBF8600F21EF6 /* NSColor+ACColor.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
 				6B1B3DD918C97247006839B4 /* (null) in Sources */,
 				5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */,

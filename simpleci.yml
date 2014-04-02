@@ -1,0 +1,2 @@
+pre_build: pod install
+build: xcodebuild -workspace Orca.xcworkspace -scheme Orca

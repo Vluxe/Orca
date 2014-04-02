@@ -22,6 +22,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)awakeFromNib
 {
+    [super awakeFromNib];
     self.dataSource = [[ACTableSource alloc] init];
     self.dataSource.delegate = self;
     self.tableView.dataSource = self.dataSource;
