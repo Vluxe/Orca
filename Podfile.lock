@@ -1,0 +1,10 @@
+PODS:
+  - ACDataViews (0.0.1)
+
+DEPENDENCIES:
+  - ACDataViews
+
+SPEC CHECKSUMS:
+  ACDataViews: 3d8fd0a33ee80e90089a6528e56aff4dcf759394
+
+COCOAPODS: 0.29.0
