@@ -39,4 +39,9 @@
  */
 - (void)saveCapture:(NSURL *)fileURL;
 
+/**
+ open the packet capture from disk.
+ */
+- (void)openCapture:(NSURL *)fileURL;
+
 @end
