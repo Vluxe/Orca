@@ -10,14 +10,20 @@
 
 #import "AppDelegate.h"
 #import "TextTableViewCell.h"
+#import "PacketProcessor.h"
+#import "EthernetPacket.h"
+#import "TCPPacket.h"
 
 @implementation AppDelegate
 
 ///////////////////////////////////////////////////////////////////////////////////////
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.pcap = [[PacketCapture alloc] init];
-    [self.popButton addItemsWithTitles:[self.pcap getInterfaces]];
+    self.interfaces = [[NSMutableArray alloc] initWithArray:[PacketProcessor getInterfaces]];
+    NSMutableArray *collect = [NSMutableArray arrayWithCapacity:self.interfaces.count];
+    for(Interface *inter in self.interfaces)
+        [collect addObject:inter.displayName];
+    [self.popButton addItemsWithTitles:collect];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)awakeFromNib
@@ -37,35 +43,39 @@
                     toTableView:self.tableView];
     
     //fake test!!!
-    for(int i = 0; i < 10; i++)
+    /*for(int i = 0; i < 10; i++)
     {
         [self.time addObject:@"random time"];
         [self.source addObject:@"random src"];
         [self.destination addObject:@"random dest"];
         [self.protocol addObject:@"random protocol"];
     }
-    [self.tableView reloadData];
+    [self.tableView reloadData];*/
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)startCapture:(id)sender
 {
-    if(self.pcap.isCapturing)
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    processor.delegate = (id<PacketProcessorDelegate>)self;
+    if(processor.isCapturing)
     {
         NSLog(@"stopping capture");
         self.captureButton.label = self.captureButton.paletteLabel = NSLocalizedString(@"Start", nil);
-        [self.pcap stopCapturing];
+        [processor stopCapture];
     }
     else
     {
         self.captureButton.label = self.captureButton.paletteLabel = NSLocalizedString(@"Stop", nil);
-        NSString *interface = self.popButton.selectedItem.title;
-        NSLog(@"starting capture on: %@",interface);
-        [self.pcap capturePackets:interface];
+        NSInteger index = [self.popButton indexOfSelectedItem];
+        Interface *inter = self.interfaces[index];
+        NSLog(@"starting capture on: %@",inter.name);
+        [processor startCapture:inter];
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)saveCapture:(id)sender
 {
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
     NSSavePanel *savePanel = [[NSSavePanel alloc] init];
     if ([savePanel runModal] == NSOKButton)
     {
@@ -74,10 +84,27 @@
             selectedFileName = [selectedFileName URLByAppendingPathExtension:@"pcap"];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
             @autoreleasepool {
-                [self.pcap saveCapture:selectedFileName];
+                [processor saveCapture:selectedFileName];
             }
         });
     }
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)didReceivePackets:(NSArray*)packets
+{
+    //NSLog(@"new packets: %@",packets);
+    for(id packet in packets)
+    {
+        if([packet isKindOfClass:[TCPPacket class]])
+        {
+            TCPPacket *tcp = packet;
+            [self.time addObject:@"Now"];
+            [self.source addObject:tcp.srcIP];
+            [self.destination addObject:tcp.dstIP];
+            [self.protocol addObject:@"TCP"];
+        }
+    }
+    [self.tableView reloadData];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(Class)classForObject:(id)object

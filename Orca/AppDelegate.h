@@ -9,18 +9,17 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import <Cocoa/Cocoa.h>
-#import "PacketCapture.h"
 #import "ACTableSource.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic,strong)PacketCapture *pcap;
 
 @property (nonatomic,strong)IBOutlet NSPopUpButton *popButton;
 @property (nonatomic,strong)IBOutlet NSToolbarItem *captureButton;
 @property (nonatomic,strong)IBOutlet NSTableView *tableView;
 @property (nonatomic,strong)ACTableSource *dataSource;
+@property (nonatomic,strong)NSMutableArray *interfaces;
 
 @property (nonatomic,strong)NSMutableArray *time;
 @property (nonatomic,strong)NSMutableArray *source;

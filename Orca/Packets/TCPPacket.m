@@ -31,7 +31,7 @@
         }
         else if (ntohs(eptr->ether_type) == ETHERTYPE_IPV6)
         {
-            NSLog(@"ipv6 fail.");
+            //NSLog(@"ipv6 fail.");
             //offset += somesize...
         }
         else
@@ -49,7 +49,7 @@
         //NSLog(@"offset: %d",offset);
         //NSLog(@"total size: %@",self.totalSize);
         self.payload = [NSData dataWithBytes:(packet+(offset)) length:[self.totalSize intValue]-(offset-ETHER_HDR_LEN)];
-        NSLog(@"payload: %@",[[NSString alloc] initWithData:self.payload encoding:NSUTF8StringEncoding]);
+        //NSLog(@"payload: %@",[[NSString alloc] initWithData:self.payload encoding:NSUTF8StringEncoding]);
     }
     return self;
 }

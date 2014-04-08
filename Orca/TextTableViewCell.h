@@ -9,9 +9,10 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import "ACTableViewCell.h"
+#import "ACLabel.h"
 
 @interface TextTableViewCell : ACTableViewCell
 
-@property(nonatomic,strong)NSTextField *textLabel;
+@property(nonatomic,strong)ACLabel *textLabel;
 
 @end

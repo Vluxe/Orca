@@ -1,2 +1,3 @@
-platform :osx, '10.7'
+platform :osx, '10.8'
 pod 'ACDataViews'
+pod 'NSCustomizeKit'

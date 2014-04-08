@@ -16,15 +16,20 @@
 +(CGFloat)tableView:(NSTableView*)tableView rowHeightForObject:(id)object
 {
     return 22;
+    /*if(!object)
+        return 22;
+    NSString *text = object;
+    NSRect textSize = [text boundingRectWithSize:NSMakeSize(tableView.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName: [NSFont systemFontOfSize:15]}];
+    return textSize.size.height;*/
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)initWithIdentifier:(NSString*)identifier
 {
     if(self = [super initWithIdentifier:identifier])
     {
-        self.textLabel = [[NSTextField alloc] init];
-        [self.textLabel setBordered:NO];
-        [self.textLabel setBezeled:NO];
+        self.textLabel = [[ACLabel alloc] init];
+        //[self.textLabel setBordered:NO];
+        //[self.textLabel setBezeled:NO];
         self.textLabel.backgroundColor = [NSColor clearColor];
         [self addSubview:self.textLabel];
     }
@@ -39,7 +44,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)setObject:(id)object
 {
-    self.textLabel.stringValue = object;
+    self.textLabel.text = object;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)setSelected:(BOOL)selected
@@ -49,5 +54,6 @@
     else
         self.textLabel.textColor = [NSColor blackColor];
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @end
