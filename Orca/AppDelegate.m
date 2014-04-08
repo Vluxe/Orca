@@ -107,6 +107,35 @@
     [self.tableView reloadData];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+-(IBAction)openCapture:(id)sender
+{
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+    [openPanel setCanChooseFiles:YES];
+    [openPanel setDelegate:self];
+    if([openPanel runModal] == NSOKButton)
+    {
+        NSURL *selectedFileName = [openPanel URL];
+        [processor openCapture:selectedFileName];
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
+    NSError *error = nil;
+    NSNumber *isDirectory;
+    if([[url pathExtension] isEqualToString:@"pcap"])
+        return YES;
+    else if([url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error])
+    {
+        if([isDirectory boolValue])
+            return YES;
+        else
+            return NO;
+    }
+    return NO;
+}
+///////////////////////////////////////////////////////////////////////////////////////
 -(Class)classForObject:(id)object
 {
     return [TextTableViewCell class];

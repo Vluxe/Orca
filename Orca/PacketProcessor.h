@@ -62,6 +62,12 @@
  */
 - (void)saveCapture:(NSURL *)fileURL;
 
+/**
+ open a packet capture from disk.
+ @param fileURL is the url to open it from.
+ */
+- (void)openCapture:(NSURL *)fileURL;
+
 
 
 @end

@@ -228,5 +228,22 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-
+- (void)openCapture:(NSURL *)fileURL
+{
+    char errbuf[PCAP_ERRBUF_SIZE];
+    self.descr = pcap_open_offline([[fileURL path] UTF8String], errbuf);
+    if(self.descr == NULL)
+    {
+        NSLog(@"[ERROR] %s", errbuf);
+        return;
+    }
+    
+    _isCapturing = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+        @autoreleasepool {
+            pcap_loop(self.descr, 0, packet_callback, NULL);
+        }
+    });
+}
+///////////////////////////////////////////////////////////////////////////////////////
 @end

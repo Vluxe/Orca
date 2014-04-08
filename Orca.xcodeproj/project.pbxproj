@@ -342,7 +342,6 @@
 				5CAE39DB18E516250054B955 /* TextTableViewCell.m in Sources */,
 				5CE3343218F3A78500CEA610 /* PacketProcessor.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
-				6B1B3DD918C97247006839B4 /* (null) in Sources */,
 				5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */,
 				5CAE398918D94DDA0054B955 /* IPPacket.m in Sources */,
 			);

@@ -862,7 +862,7 @@
                             <action selector="startCapture:" target="494" id="OiT-In-BCa"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="715FF4C2-63BC-471C-9C91-EE1A84A95F55" label="" paletteLabel="Custom View" id="O6m-ev-QzZ">
+                    <toolbarItem implicitItemIdentifier="715FF4C2-63BC-471C-9C91-EE1A84A95F55" label="" paletteLabel="" id="O6m-ev-QzZ" userLabel="Toolbar Save">
                         <nil key="toolTip"/>
                         <size key="minSize" width="82" height="32"/>
                         <size key="maxSize" width="82" height="32"/>
@@ -906,6 +906,22 @@
                             </searchFieldCell>
                         </searchField>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="3E47B9B2-5B53-49C2-97F5-AAC38B0FB658" label="" paletteLabel="" id="aq0-iP-Dmh" userLabel="Toolbar Open">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="82" height="32"/>
+                        <size key="maxSize" width="86" height="43"/>
+                        <button key="view" verticalHuggingPriority="750" id="MB3-s1-FCD">
+                            <rect key="frame" x="0.0" y="14" width="86" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sOe-tp-EKp">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="openCapture:" target="494" id="7i5-yY-LkS"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="0Ia-3T-4qs"/>
@@ -913,6 +929,8 @@
                     <toolbarItem reference="StR-eH-21v"/>
                     <toolbarItem reference="uza-Pd-l6t"/>
                     <toolbarItem reference="O6m-ev-QzZ"/>
+                    <toolbarItem reference="uza-Pd-l6t"/>
+                    <toolbarItem reference="aq0-iP-Dmh"/>
                     <toolbarItem reference="6jT-F6-WlA"/>
                     <toolbarItem reference="uqq-Mh-4ga"/>
                 </defaultToolbarItems>

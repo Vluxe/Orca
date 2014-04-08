@@ -11,7 +11,7 @@
 #import <Cocoa/Cocoa.h>
 #import "ACTableSource.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate,NSOpenSavePanelDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
