@@ -25,5 +25,6 @@
 @property (nonatomic,strong)NSMutableArray *source;
 @property (nonatomic,strong)NSMutableArray *destination;
 @property (nonatomic,strong)NSMutableArray *protocol;
+@property (nonatomic,strong)NSMutableArray *info;
 
 @end

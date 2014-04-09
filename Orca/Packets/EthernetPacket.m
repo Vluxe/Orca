@@ -27,8 +27,19 @@
                        eptr->ether_dhost[0],eptr->ether_dhost[1],eptr->ether_dhost[2],
                        eptr->ether_dhost[3],eptr->ether_dhost[4],eptr->ether_dhost[5]];
         self.packetHeader = packetHeader;
+        self.date = [NSDate date];
     }
     return self;
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(NSString*)protocolName
+{
+    return @"Undefined";
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(NSString*)infoString
+{
+    return [NSString stringWithFormat:@"%@ -> %@",self.srcMac,self.dstMac];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 

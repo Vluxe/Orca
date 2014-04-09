@@ -13,6 +13,7 @@
 #import "PacketProcessor.h"
 #import "EthernetPacket.h"
 #import "TCPPacket.h"
+#import "NSDate+OrcaDate.h"
 
 @implementation AppDelegate
 
@@ -38,8 +39,9 @@
     self.source = [NSMutableArray new];
     self.destination = [NSMutableArray new];
     self.protocol = [NSMutableArray new];
+    self.info = [NSMutableArray new];
     
-    [self.dataSource bindArrays:@[self.time,self.source,self.destination,self.protocol]
+    [self.dataSource bindArrays:@[self.time,self.source,self.destination,self.protocol,self.info]
                     toTableView:self.tableView];
     
     //fake test!!!
@@ -98,10 +100,11 @@
         if([packet isKindOfClass:[TCPPacket class]])
         {
             TCPPacket *tcp = packet;
-            [self.time addObject:@"Now"];
+            [self.time addObject:[tcp.date formatTime]];
             [self.source addObject:tcp.srcIP];
             [self.destination addObject:tcp.dstIP];
-            [self.protocol addObject:@"TCP"];
+            [self.protocol addObject:[tcp protocolName]];
+            [self.info addObject:[tcp infoString]];
         }
     }
     [self.tableView reloadData];

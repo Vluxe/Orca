@@ -13,6 +13,13 @@
 #import <netinet/if_ether.h>
 #import <netinet/ip.h>
 #import <netinet/ip6.h>
+#import "HTTPPayload.h"
+
+@interface TCPPacket ()
+
+@property(nonatomic,copy)NSString *proName;
+
+@end
 
 @implementation TCPPacket
 
@@ -21,6 +28,7 @@
 {
     if(self = [super initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader])
     {
+        self.proName = @"TCP";
         struct ether_header *eptr = (struct ether_header *) packet;
         int offset = ETHER_HDR_LEN;
         if (ntohs(eptr->ether_type) == ETHERTYPE_IP)
@@ -48,10 +56,27 @@
         //NSLog(@"%s",(packet+offset));
         //NSLog(@"offset: %d",offset);
         //NSLog(@"total size: %@",self.totalSize);
-        self.payload = [NSData dataWithBytes:(packet+(offset)) length:[self.totalSize intValue]-(offset-ETHER_HDR_LEN)];
-        //NSLog(@"payload: %@",[[NSString alloc] initWithData:self.payload encoding:NSUTF8StringEncoding]);
+        self.payloadData = [NSData dataWithBytes:(packet+(offset)) length:[self.totalSize intValue]-(offset-ETHER_HDR_LEN)];
+        if(self.payloadData)
+            self.payloadString = [[NSString alloc] initWithData:self.payloadData encoding:NSUTF8StringEncoding];
+        if([HTTPPayload isPayload:self])
+            self.proName = @"HTTP";
+        //if(!self.payload)
     }
     return self;
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(NSString*)protocolName
+{
+    return self.proName;
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(NSString*)infoString
+{
+    if(self.payload){
+        return [self.payload payloadInfo];
+    }
+    return [NSString stringWithFormat:@"%@ -> %@ Seq=%@",self.srcPort,self.dstPort,self.sequence];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)description

@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "IPPacket.h"
+#import "Payload.h"
 
 @interface TCPPacket : IPPacket
 
@@ -23,6 +24,8 @@
 @property(nonatomic, strong)NSNumber *window;
 @property(nonatomic, strong)NSNumber *checksum;
 @property(nonatomic, strong)NSNumber *urgentPointer;
-@property(nonatomic,strong)NSData *payload;
+@property(nonatomic,strong)NSData *payloadData;
+@property(nonatomic,copy)NSString *payloadString;
+@property(nonatomic,strong)Payload *payload;
 
 @end

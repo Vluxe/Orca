@@ -17,6 +17,9 @@
 @property(nonatomic,copy)NSString *dstMac;
 @property(nonatomic)const struct pcap_pkthdr *packetHeader;
 @property(nonatomic)u_char *rawData;
+@property(nonatomic)NSDate *date;
+@property(nonatomic,copy,readonly)NSString *protocolName;
+@property(nonatomic,copy,readonly)NSString *infoString;
 
 - (instancetype)initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader;
 
