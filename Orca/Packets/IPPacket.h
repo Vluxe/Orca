@@ -15,7 +15,7 @@
 
 @property(nonatomic,copy)NSString *srcIP;
 @property(nonatomic,copy)NSString *dstIP;
-@property(nonatomic,strong)NSNumber *totalSize;
+@property(nonatomic,assign)NSInteger totalSize;
 
 //ipv6 specific headers will go here
 

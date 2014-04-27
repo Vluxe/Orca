@@ -1,20 +1,20 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 //
-//  IPPacket.m
+//  UDPPacket.m
 //  Orca
 //
-//  Created by Dalton Cherry on 3/18/14.
+//  Created by Dalton Cherry on 4/21/14.
 //  Copyright (c) 2014 Vluxe. All rights reserved.
 //
 ///////////////////////////////////////////////////////////////////////////////////////
 
-#import "IPPacket.h"
+#import "UDPPacket.h"
+#include <netinet/udp.h>
 #import <netinet/if_ether.h>
 #import <netinet/ip.h>
 #import <netinet/ip6.h>
-#import <arpa/inet.h>
 
-@implementation IPPacket
+@implementation UDPPacket
 
 ///////////////////////////////////////////////////////////////////////////////////////
 - (instancetype)initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader
@@ -22,50 +22,48 @@
     if(self = [super initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader])
     {
         struct ether_header *eptr = (struct ether_header *) packet;
-        
-        /* check to see if we have an ip packet */
+        int offset = ETHER_HDR_LEN;
         if (ntohs(eptr->ether_type) == ETHERTYPE_IP)
         {
-            char src[64];
-            char dst[64];
             struct ip *iphdr = (struct ip*)(packet + ETHER_HDR_LEN);
-            inet_ntop(AF_INET, &iphdr->ip_src, src, sizeof(src));
-            inet_ntop(AF_INET, &iphdr->ip_dst, dst, sizeof(dst));
-            self.srcIP = [[NSString alloc] initWithUTF8String:src];
-            self.dstIP = [[NSString alloc] initWithUTF8String:dst];
-            self.totalSize = htons(iphdr->ip_len);
-            //int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
-            //NSLog(@"total length: %d",iphdr->ip_len);
+            offset += iphdr->ip_hl*sizeof(unsigned int);
             
         }
         else if (ntohs(eptr->ether_type) == ETHERTYPE_IPV6)
         {
-            char src[64];
-            char dst[64];
-            struct ip6_hdr *iphdr = (struct ip6_hdr*)(packet + ETHER_HDR_LEN);
-            inet_ntop(AF_INET6, &iphdr->ip6_src, src, sizeof(src));
-            inet_ntop(AF_INET6, &iphdr->ip6_dst, dst, sizeof(dst));
-            //int ipHeaderSize = iphdr->ip_hl*sizeof(unsigned int);
-            self.srcIP = [[NSString alloc] initWithUTF8String:src];
-            self.dstIP = [[NSString alloc] initWithUTF8String:dst];
-            self.totalSize = iphdr->ip6_plen;
+            //NSLog(@"ipv6 fail.");
+            //offset += somesize...
         }
         else
         {
-            //not sure what kind of IP version this is....
+            NSLog(@"TCP ERROR: no idea what this is....");
+            return self;
         }
+        struct udphdr *udpHeader = (struct udphdr*) (packet + offset);
+        int size = ntohs(udpHeader->uh_ulen);
+        offset += sizeof(struct udphdr);
+        self.udpSize = size;
+        self.srcPort = htons(udpHeader->uh_sport);
+        self.dstPort = htons(udpHeader->uh_dport);
+        //NSLog(@"%s",(packet+offset));
+        //NSLog(@"offset: %d",offset);
+        //NSLog(@"total size: %@",self.totalSize);
+        self.payloadData = [NSData dataWithBytes:(packet+(offset)) length:self.totalSize-(offset-ETHER_HDR_LEN)];
+        if(self.payloadData)
+            self.payloadString = [[NSString alloc] initWithData:self.payloadData encoding:NSUTF8StringEncoding];
+        NSLog(@"udp packet payload: %@",self.payloadString);
     }
     return self;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)protocolName
 {
-    return @"IP";
+    return @"UDP";
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)infoString
 {
-    return [NSString stringWithFormat:@"%@ -> %@",self.srcIP,self.dstIP];
+    return [NSString stringWithFormat:@"%ld -> %ld size=%ld",(long)self.srcPort,(long)self.dstPort,(long)self.udpSize];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)description
@@ -73,6 +71,5 @@
     return [NSString stringWithFormat:@"\nsrcMac: %@\ndstMac: %@\nsrcIP: %@\ndstIP: %@\n",self.srcMac,
             self.dstMac,self.srcIP,self.dstIP];
 }
-///////////////////////////////////////////////////////////////////////////////////////
 
 @end

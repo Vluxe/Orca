@@ -15,8 +15,8 @@
 		5CE3343218F3A78500CEA610 /* PacketProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3343118F3A78500CEA610 /* PacketProcessor.m */; };
 		5CE3343518F3B92000CEA610 /* Interface.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3343418F3B92000CEA610 /* Interface.m */; };
 		5CE3343918F49CDF00CEA610 /* NSDate+OrcaDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3343818F49CDF00CEA610 /* NSDate+OrcaDate.m */; };
-		5CE3343D18F4EF7800CEA610 /* HTTPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3343C18F4EF7800CEA610 /* HTTPPayload.m */; };
-		5CE3344318F4EFED00CEA610 /* Payload.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE3344218F4EFED00CEA610 /* Payload.m */; };
+		5CE334AD18FE25BD00CEA610 /* TCPPacketProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE334AC18FE25BD00CEA610 /* TCPPacketProcessor.m */; };
+		5CE335671905E37600CEA610 /* UDPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE335661905E37600CEA610 /* UDPPacket.m */; };
 		6BC383B818C425C400F67B8A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC383B718C425C400F67B8A /* Cocoa.framework */; };
 		6BC383C218C425C400F67B8A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BC383C018C425C400F67B8A /* InfoPlist.strings */; };
 		6BC383C418C425C400F67B8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BC383C318C425C400F67B8A /* main.m */; };
@@ -56,10 +56,10 @@
 		5CE3343418F3B92000CEA610 /* Interface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interface.m; sourceTree = "<group>"; };
 		5CE3343718F49CDF00CEA610 /* NSDate+OrcaDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+OrcaDate.h"; sourceTree = "<group>"; };
 		5CE3343818F49CDF00CEA610 /* NSDate+OrcaDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+OrcaDate.m"; sourceTree = "<group>"; };
-		5CE3343B18F4EF7800CEA610 /* HTTPPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPPayload.h; sourceTree = "<group>"; };
-		5CE3343C18F4EF7800CEA610 /* HTTPPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPPayload.m; sourceTree = "<group>"; };
-		5CE3344118F4EFED00CEA610 /* Payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payload.h; sourceTree = "<group>"; };
-		5CE3344218F4EFED00CEA610 /* Payload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Payload.m; sourceTree = "<group>"; };
+		5CE334AB18FE25BD00CEA610 /* TCPPacketProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPPacketProcessor.h; sourceTree = "<group>"; };
+		5CE334AC18FE25BD00CEA610 /* TCPPacketProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPPacketProcessor.m; sourceTree = "<group>"; };
+		5CE335651905E37600CEA610 /* UDPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPPacket.h; sourceTree = "<group>"; };
+		5CE335661905E37600CEA610 /* UDPPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPPacket.m; sourceTree = "<group>"; };
 		60E517D759174FED90843705 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC383B418C425C400F67B8A /* Orca.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orca.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BC383B718C425C400F67B8A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -110,13 +110,16 @@
 		5CAE398118D94DDA0054B955 /* Packets */ = {
 			isa = PBXGroup;
 			children = (
-				5CE3343A18F4EF6C00CEA610 /* Payloads */,
 				5CAE398218D94DDA0054B955 /* EthernetPacket.h */,
 				5CAE398318D94DDA0054B955 /* EthernetPacket.m */,
 				5CAE398418D94DDA0054B955 /* IPPacket.h */,
 				5CAE398518D94DDA0054B955 /* IPPacket.m */,
 				5CAE398618D94DDA0054B955 /* TCPPacket.h */,
 				5CAE398718D94DDA0054B955 /* TCPPacket.m */,
+				5CE334AB18FE25BD00CEA610 /* TCPPacketProcessor.h */,
+				5CE334AC18FE25BD00CEA610 /* TCPPacketProcessor.m */,
+				5CE335651905E37600CEA610 /* UDPPacket.h */,
+				5CE335661905E37600CEA610 /* UDPPacket.m */,
 			);
 			path = Packets;
 			sourceTree = "<group>";
@@ -128,17 +131,6 @@
 				5CE3343818F49CDF00CEA610 /* NSDate+OrcaDate.m */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		5CE3343A18F4EF6C00CEA610 /* Payloads */ = {
-			isa = PBXGroup;
-			children = (
-				5CE3343B18F4EF7800CEA610 /* HTTPPayload.h */,
-				5CE3343C18F4EF7800CEA610 /* HTTPPayload.m */,
-				5CE3344118F4EFED00CEA610 /* Payload.h */,
-				5CE3344218F4EFED00CEA610 /* Payload.m */,
-			);
-			path = Payloads;
 			sourceTree = "<group>";
 		};
 		6BC383AB18C425C400F67B8A = {
@@ -372,10 +364,10 @@
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
 				5CAE39DB18E516250054B955 /* TextTableViewCell.m in Sources */,
 				5CE3343218F3A78500CEA610 /* PacketProcessor.m in Sources */,
-				5CE3344318F4EFED00CEA610 /* Payload.m in Sources */,
+				5CE334AD18FE25BD00CEA610 /* TCPPacketProcessor.m in Sources */,
 				6BC383C418C425C400F67B8A /* main.m in Sources */,
 				5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */,
-				5CE3343D18F4EF7800CEA610 /* HTTPPayload.m in Sources */,
+				5CE335671905E37600CEA610 /* UDPPacket.m in Sources */,
 				5CAE398918D94DDA0054B955 /* IPPacket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

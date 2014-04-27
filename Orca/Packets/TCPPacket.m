@@ -13,11 +13,9 @@
 #import <netinet/if_ether.h>
 #import <netinet/ip.h>
 #import <netinet/ip6.h>
-#import "HTTPPayload.h"
+#import "TCPPacketProcessor.h"
 
 @interface TCPPacket ()
-
-@property(nonatomic,copy)NSString *proName;
 
 @end
 
@@ -28,7 +26,6 @@
 {
     if(self = [super initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader])
     {
-        self.proName = @"TCP";
         struct ether_header *eptr = (struct ether_header *) packet;
         int offset = ETHER_HDR_LEN;
         if (ntohs(eptr->ether_type) == ETHERTYPE_IP)
@@ -50,33 +47,31 @@
         struct tcphdr *tcpHeader = (struct tcphdr*) (packet + offset);
         int size = tcpHeader->th_off*sizeof(unsigned int);
         offset += size;
-        self.tcpSize = @(size);
-        self.srcPort = @(ntohs(tcpHeader->th_sport));
-        self.dstPort = @(ntohs(tcpHeader->th_dport));
+        self.tcpSize = size;
+        self.flags = tcpHeader->th_flags;
+        self.sequence = tcpHeader->th_seq;
+        self.srcPort = ntohs(tcpHeader->th_sport);
+        self.dstPort = ntohs(tcpHeader->th_dport);
         //NSLog(@"%s",(packet+offset));
         //NSLog(@"offset: %d",offset);
         //NSLog(@"total size: %@",self.totalSize);
-        self.payloadData = [NSData dataWithBytes:(packet+(offset)) length:[self.totalSize intValue]-(offset-ETHER_HDR_LEN)];
+        self.payloadData = [NSData dataWithBytes:(packet+(offset)) length:self.totalSize-(offset-ETHER_HDR_LEN)];
         if(self.payloadData)
             self.payloadString = [[NSString alloc] initWithData:self.payloadData encoding:NSUTF8StringEncoding];
-        if([HTTPPayload isPayload:self])
-            self.proName = @"HTTP";
-        //if(!self.payload)
+        TCPPacketProcessor *processor = [TCPPacketProcessor sharedProcessor];
+        [processor addPacket:self];
     }
     return self;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)protocolName
 {
-    return self.proName;
+    return @"TCP";
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)infoString
 {
-    if(self.payload){
-        return [self.payload payloadInfo];
-    }
-    return [NSString stringWithFormat:@"%@ -> %@ Seq=%@",self.srcPort,self.dstPort,self.sequence];
+    return [NSString stringWithFormat:@"%ld -> %ld Seq=%ld",(long)self.srcPort,(long)self.dstPort,(long)self.sequence];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(NSString*)description

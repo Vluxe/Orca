@@ -10,15 +10,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ACTableSource.h"
+#import "ACOutlineSource.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate,NSOpenSavePanelDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate,NSOpenSavePanelDelegate,ACOutlineSourceDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
 @property (nonatomic,strong)IBOutlet NSPopUpButton *popButton;
 @property (nonatomic,strong)IBOutlet NSToolbarItem *captureButton;
 @property (nonatomic,strong)IBOutlet NSTableView *tableView;
-@property (nonatomic,strong)ACTableSource *dataSource;
+@property (nonatomic,strong)IBOutlet NSOutlineView *outlineView;
+@property (nonatomic,strong)ACTableSource *tableDataSource;
+@property (nonatomic,strong)ACOutlineSource *outlineDataSource;
 @property (nonatomic,strong)NSMutableArray *interfaces;
 
 @property (nonatomic,strong)NSMutableArray *time;

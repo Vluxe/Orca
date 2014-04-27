@@ -14,6 +14,7 @@
 #import "EthernetPacket.h"
 #import "TCPPacket.h"
 #import "NSDate+OrcaDate.h"
+#import "TCPPacketProcessor.h"
 
 @implementation AppDelegate
 
@@ -25,15 +26,22 @@
     for(Interface *inter in self.interfaces)
         [collect addObject:inter.displayName];
     [self.popButton addItemsWithTitles:collect];
+    TCPPacketProcessor *processor = [TCPPacketProcessor sharedProcessor];
+    [processor addDelegate:(id<TCPPacketProcessorDelegate>)self];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    self.dataSource = [[ACTableSource alloc] init];
-    self.dataSource.delegate = self;
-    self.tableView.dataSource = self.dataSource;
-    self.tableView.delegate = self.dataSource;
+    self.tableDataSource = [[ACTableSource alloc] init];
+    self.tableDataSource.delegate = self;
+    self.tableView.dataSource = self.tableDataSource;
+    self.tableView.delegate = self.tableDataSource;
+    
+    self.outlineDataSource = [[ACOutlineSource alloc] init];
+    self.outlineDataSource.delegate = self;
+    self.outlineView.dataSource = self.outlineDataSource;
+    self.outlineView.delegate = self.outlineDataSource;
     
     self.time = [NSMutableArray new];
     self.source = [NSMutableArray new];
@@ -41,18 +49,19 @@
     self.protocol = [NSMutableArray new];
     self.info = [NSMutableArray new];
     
-    [self.dataSource bindArrays:@[self.time,self.source,self.destination,self.protocol,self.info]
+    [self.tableDataSource bindArrays:@[self.time,self.source,self.destination,self.protocol,self.info]
                     toTableView:self.tableView];
     
     //fake test!!!
-    /*for(int i = 0; i < 10; i++)
-    {
-        [self.time addObject:@"random time"];
-        [self.source addObject:@"random src"];
-        [self.destination addObject:@"random dest"];
-        [self.protocol addObject:@"random protocol"];
-    }
-    [self.tableView reloadData];*/
+//    for(int i = 0; i < 10; i++)
+//    {
+//        [self.time addObject:@"7:51 AM"];
+//        [self.source addObject:@"10.16.43.120"];
+//        [self.destination addObject:@"69.87.134.123"];
+//        [self.protocol addObject:@"HTTP"];
+//        [self.info addObject:@"random data to fill this with"];
+//    }
+//    [self.tableView reloadData];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)startCapture:(id)sender
@@ -97,17 +106,19 @@
     //NSLog(@"new packets: %@",packets);
     for(id packet in packets)
     {
-        if([packet isKindOfClass:[TCPPacket class]])
-        {
-            TCPPacket *tcp = packet;
-            [self.time addObject:[tcp.date formatTime]];
-            [self.source addObject:tcp.srcIP];
-            [self.destination addObject:tcp.dstIP];
-            [self.protocol addObject:[tcp protocolName]];
-            [self.info addObject:[tcp infoString]];
-        }
+        IPPacket *ipPacket = packet;
+        [self.time addObject:[ipPacket.date formatTime]];
+        [self.source addObject:ipPacket.srcIP];
+        [self.destination addObject:ipPacket.dstIP];
+        [self.protocol addObject:[ipPacket protocolName]];
+        [self.info addObject:[ipPacket infoString]];
     }
     [self.tableView reloadData];
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)didAssemblePacket:(TCPPacket*)packet
+{
+    NSLog(@"we got a newly assembled packet!");
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)openCapture:(id)sender
@@ -121,6 +132,11 @@
         NSURL *selectedFileName = [openPanel URL];
         [processor openCapture:selectedFileName];
     }
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)didSelectRow:(NSArray*)objects atIndex:(NSInteger)row
+{
+    NSLog(@"selected: %@",objects);
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
@@ -146,7 +162,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)dealloc
 {
-    self.dataSource = nil;
+    self.outlineDataSource = nil;
+    self.tableDataSource = nil;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 

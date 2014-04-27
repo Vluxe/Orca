@@ -20,6 +20,7 @@
 #import <netinet/tcp.h>
 #import <netinet/udp.h>
 #import "TCPPacket.h"
+#import "UDPPacket.h"
 
 @interface PacketProcessor ()
 
@@ -99,8 +100,6 @@
 {
     char errbuf[PCAP_ERRBUF_SIZE];
     
-    if(self.descr)
-        pcap_close(self.descr);
     self.descr = pcap_create([interface.name UTF8String], errbuf);
     
     if(self.descr == NULL)
@@ -131,17 +130,17 @@
 void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_char *packet)
 {
     PacketProcessor *processor = [PacketProcessor sharedProcessor];
-    if(!processor.isCapturing)
-    {
-        if(processor.descr)
-        {
-            NSLog(@"stop capturing...");
-            pcap_breakloop(processor.descr);
-            pcap_close(processor.descr);
-            processor.descr = nil;
-        }
-        return;
-    }
+//    if(!processor.isCapturing)
+//    {
+//        if(processor.descr)
+//        {
+//            NSLog(@"stop capturing...");
+//            pcap_breakloop(processor.descr);
+//            //pcap_close(processor.descr);
+//            processor.descr = nil;
+//        }
+//        return;
+//    }
     if(packet == NULL)
     {
         NSLog(@"Didn't grab packet\n");
@@ -159,6 +158,9 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
         if(iphdr->ip_p == IPPROTO_UDP)
         {
             //NSLog(@"UDP action!");
+            UDPPacket *udpObject = [[UDPPacket alloc] initWithPacket:(u_char*)packet packetHeader:pkthdr];
+            [processor.allPackets addObject:udpObject];
+            [processor.bufferPackets addObject:udpObject];
         }
         else if(iphdr->ip_p == IPPROTO_TCP)
         {
@@ -199,7 +201,11 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
 {
     if(!self.lastDate || [self.lastDate timeIntervalSinceNow] < -0.5)
     {
-        [self.delegate didReceivePackets:self.bufferPackets];
+        NSArray *copyPackets = [self.bufferPackets copy];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate didReceivePackets:copyPackets];
+            //NSLog(@"buffer packets: %@",copyPackets);
+        });
         [self.bufferPackets removeAllObjects];
         self.lastDate = [NSDate date];
     }
@@ -213,6 +219,8 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
     {
         _isCapturing = NO;
     }
+    pcap_breakloop(self.descr);
+    self.descr = nil;
     //check one last time to ensure the buffer is clear
     //[self checkPackets];
 }
@@ -241,7 +249,9 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
     _isCapturing = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
         @autoreleasepool {
-            pcap_loop(self.descr, 0, packet_callback, NULL);
+            int r = pcap_loop(self.descr, 0, packet_callback, NULL);
+            if(r < 0)
+                return;
         }
     });
 }

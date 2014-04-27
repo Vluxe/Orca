@@ -1,13 +1,13 @@
 PODS:
-  - ACDataViews (0.0.2)
-  - NSCustomizeKit (0.0.1)
+  - ACDataViews (0.0.5)
+  - NSCustomizeKit (0.0.2)
 
 DEPENDENCIES:
   - ACDataViews
   - NSCustomizeKit
 
 SPEC CHECKSUMS:
-  ACDataViews: 39511b4c4264c3fe49f962d82901f8d817a10cd2
-  NSCustomizeKit: fd26a70ef0858a29c97cad3a042ab1759561fe8c
+  ACDataViews: a260e5536b4fdb8ec92b493863beb23d55e50f82
+  NSCustomizeKit: 565333be123f1fb23b77927a491abd1cefb5307b
 
-COCOAPODS: 0.31.1
+COCOAPODS: 0.32.1
