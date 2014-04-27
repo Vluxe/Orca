@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "Interface.h"
 
+@class EthernetPacket;
+
 @protocol PacketProcessorDelegate <NSObject>
 
 /**
@@ -67,6 +69,13 @@
  @param fileURL is the url to open it from.
  */
 - (void)openCapture:(NSURL *)fileURL;
+
+/**
+ Get a packet at a row index.
+ @param: index is array index to access for the packet.
+ @return a packet that has been processed
+ */
+-(EthernetPacket*)packetAtIndex:(NSInteger)index;
 
 
 

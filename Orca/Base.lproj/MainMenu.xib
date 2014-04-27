@@ -961,31 +961,10 @@
                     <constraint firstItem="M13-30-Cya" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="wkk-1G-7qb"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="E430C537-9CF2-4010-B3BC-810B0B9B4998" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="ee5-Nd-k4i">
+            <toolbar key="toolbar" implicitIdentifier="E430C537-9CF2-4010-B3BC-810B0B9B4998" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="ee5-Nd-k4i">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="uza-Pd-l6t"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="6jT-F6-WlA"/>
-                    <toolbarItem implicitItemIdentifier="5D9512C6-F128-418E-A089-35361BB600C8" label="Start" paletteLabel="Start" tag="-1" image="NSNetwork" id="StR-eH-21v" userLabel="Toolbar Item - start Item">
-                        <connections>
-                            <action selector="startCapture:" target="494" id="OiT-In-BCa"/>
-                        </connections>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="715FF4C2-63BC-471C-9C91-EE1A84A95F55" label="" paletteLabel="" id="O6m-ev-QzZ" userLabel="Toolbar Save">
-                        <nil key="toolTip"/>
-                        <size key="minSize" width="82" height="32"/>
-                        <size key="maxSize" width="82" height="32"/>
-                        <button key="view" verticalHuggingPriority="750" id="Hdq-KK-cYS">
-                            <rect key="frame" x="0.0" y="14" width="82" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vKV-Ji-DFG">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="saveCapture:" target="494" id="4JV-lE-aD1"/>
-                            </connections>
-                        </button>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="BBF4024F-3DA9-4168-A8EB-52ED279B85BE" label="" paletteLabel="" id="uqq-Mh-4ga" userLabel="Toolbar Search">
                         <nil key="toolTip"/>
                         <size key="minSize" width="114" height="22"/>
@@ -999,22 +978,6 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </searchFieldCell>
                         </searchField>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="3E47B9B2-5B53-49C2-97F5-AAC38B0FB658" label="" paletteLabel="" id="aq0-iP-Dmh" userLabel="Toolbar Open">
-                        <nil key="toolTip"/>
-                        <size key="minSize" width="82" height="32"/>
-                        <size key="maxSize" width="86" height="43"/>
-                        <button key="view" verticalHuggingPriority="750" id="MB3-s1-FCD">
-                            <rect key="frame" x="0.0" y="14" width="86" height="43"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="push" title="Open" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sOe-tp-EKp">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
-                        <connections>
-                            <action selector="openCapture:" target="494" id="7i5-yY-LkS"/>
-                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="E8736AFC-6C49-47CE-9A8B-57A955109BD7" label="" paletteLabel="" id="0Ia-3T-4qs" userLabel="Toolbar popup">
                         <nil key="toolTip"/>
@@ -1030,15 +993,29 @@
                             </popUpButtonCell>
                         </popUpButton>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="63A26619-2EE1-4372-A8FA-BA8ADDA3A688" label="" paletteLabel="Start" image="NSGoRightTemplate" id="abe-nx-Lee" userLabel="Toolbar Start Item">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="60" height="25"/>
+                        <size key="maxSize" width="60" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="AFZ-lQ-Ccl">
+                            <rect key="frame" x="0.0" y="14" width="60" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSGoRightTemplate" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UPa-QW-FRN">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="startCapture:" target="494" id="xLC-vl-HjT"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="0Ia-3T-4qs"/>
                     <toolbarItem reference="uza-Pd-l6t"/>
-                    <toolbarItem reference="StR-eH-21v"/>
+                    <toolbarItem reference="abe-nx-Lee"/>
                     <toolbarItem reference="uza-Pd-l6t"/>
-                    <toolbarItem reference="O6m-ev-QzZ"/>
                     <toolbarItem reference="uza-Pd-l6t"/>
-                    <toolbarItem reference="aq0-iP-Dmh"/>
                     <toolbarItem reference="6jT-F6-WlA"/>
                     <toolbarItem reference="uqq-Mh-4ga"/>
                 </defaultToolbarItems>
@@ -1046,7 +1023,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="captureButton" destination="StR-eH-21v" id="OHl-1P-Eq4"/>
+                <outlet property="captureButton" destination="abe-nx-Lee" id="mue-23-1Nw"/>
                 <outlet property="outlineView" destination="RAj-JN-pLr" id="84c-i8-tZG"/>
                 <outlet property="popButton" destination="Kcv-83-E64" id="0is-sq-jc6"/>
                 <outlet property="tableView" destination="bap-7Z-Oq9" id="hCB-WG-woL"/>
@@ -1057,6 +1034,6 @@
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="NSNetwork" width="32" height="32"/>
+        <image name="NSGoRightTemplate" width="9" height="9"/>
     </resources>
 </document>

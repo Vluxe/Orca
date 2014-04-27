@@ -71,12 +71,12 @@
     if(processor.isCapturing)
     {
         NSLog(@"stopping capture");
-        self.captureButton.label = self.captureButton.paletteLabel = NSLocalizedString(@"Start", nil);
+        self.captureButton.image = [NSImage imageNamed:NSImageNameRightFacingTriangleTemplate];
         [processor stopCapture];
     }
     else
     {
-        self.captureButton.label = self.captureButton.paletteLabel = NSLocalizedString(@"Stop", nil);
+        self.captureButton.image = [NSImage imageNamed:NSImageNameStopProgressTemplate];
         NSInteger index = [self.popButton indexOfSelectedItem];
         Interface *inter = self.interfaces[index];
         NSLog(@"starting capture on: %@",inter.name);
@@ -137,6 +137,9 @@
 -(void)didSelectRow:(NSArray*)objects atIndex:(NSInteger)row
 {
     NSLog(@"selected: %@",objects);
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    IPPacket *packet = (IPPacket*)[processor packetAtIndex:row];
+    NSLog(@"packet: %@",packet);
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
