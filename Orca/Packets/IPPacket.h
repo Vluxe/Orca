@@ -16,9 +16,14 @@
 @property(nonatomic,copy)NSString *srcIP;
 @property(nonatomic,copy)NSString *dstIP;
 @property(nonatomic,assign)NSInteger totalSize;
+@property(nonatomic,assign)NSInteger version;
+@property(nonatomic,assign)NSInteger IPHeaderSize;
+
+@property(nonatomic,assign)NSInteger IPIdent;
+@property(nonatomic,assign)NSInteger IPFlags;
+@property(nonatomic,assign)NSInteger IPTTL;
+@property(nonatomic, assign)NSInteger IPChecksum;
 
 //ipv6 specific headers will go here
-
-//ipv4 headers will go here
 
 @end

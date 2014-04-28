@@ -52,16 +52,6 @@
     [self.tableDataSource bindArrays:@[self.time,self.source,self.destination,self.protocol,self.info]
                     toTableView:self.tableView];
     
-    //fake test!!!
-//    for(int i = 0; i < 10; i++)
-//    {
-//        [self.time addObject:@"7:51 AM"];
-//        [self.source addObject:@"10.16.43.120"];
-//        [self.destination addObject:@"69.87.134.123"];
-//        [self.protocol addObject:@"HTTP"];
-//        [self.info addObject:@"random data to fill this with"];
-//    }
-//    [self.tableView reloadData];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)startCapture:(id)sender
@@ -81,23 +71,6 @@
         Interface *inter = self.interfaces[index];
         NSLog(@"starting capture on: %@",inter.name);
         [processor startCapture:inter];
-    }
-}
-///////////////////////////////////////////////////////////////////////////////////////
--(IBAction)saveCapture:(id)sender
-{
-    PacketProcessor *processor = [PacketProcessor sharedProcessor];
-    NSSavePanel *savePanel = [[NSSavePanel alloc] init];
-    if ([savePanel runModal] == NSOKButton)
-    {
-        NSURL *selectedFileName = [savePanel URL];
-        if(![[selectedFileName pathExtension] isEqualToString:@"pcap"])
-            selectedFileName = [selectedFileName URLByAppendingPathExtension:@"pcap"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-            @autoreleasepool {
-                [processor saveCapture:selectedFileName];
-            }
-        });
     }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -121,7 +94,71 @@
     NSLog(@"we got a newly assembled packet!");
 }
 ///////////////////////////////////////////////////////////////////////////////////////
--(IBAction)openCapture:(id)sender
+-(void)didSearchPackets:(NSArray*)packets
+{
+    [self.time removeAllObjects];
+    [self.source removeAllObjects];
+    [self.source removeAllObjects];
+    [self.destination removeAllObjects];
+    [self.protocol removeAllObjects];
+    [self.info removeAllObjects];
+    for(id packet in packets)
+    {
+        IPPacket *ipPacket = packet;
+        [self.time addObject:[ipPacket.date formatTime]];
+        [self.source addObject:ipPacket.srcIP];
+        [self.destination addObject:ipPacket.dstIP];
+        [self.protocol addObject:[ipPacket protocolName]];
+        [self.info addObject:[ipPacket infoString]];
+    }
+    [self.tableView reloadData];
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)didSelectRow:(NSArray*)objects atIndex:(NSInteger)row
+{
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    IPPacket *packet = (IPPacket*)[processor packetAtIndex:row];
+
+    self.outlineDataSource.rootNode = [packet outlineNode];
+    [self.outlineView reloadData];
+}
+///////////////////////////////////////////////////////////////////////////////////////
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSSearchField *searchBar = [notification object];
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    [processor runSearch:[searchBar stringValue]];
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
+{
+    NSError *error = nil;
+    NSNumber *isDirectory;
+    if([[url pathExtension] isEqualToString:@"pcap"])
+        return YES;
+    else if([url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error])
+        return [isDirectory boolValue];
+    
+    return NO;
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)saveDocument:(id)sender
+{
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    NSSavePanel *savePanel = [[NSSavePanel alloc] init];
+    if ([savePanel runModal] == NSOKButton)
+    {
+        NSURL *selectedFileName = [savePanel URL];
+        if(![[selectedFileName pathExtension] isEqualToString:@"pcap"])
+            selectedFileName = [selectedFileName URLByAppendingPathExtension:@"pcap"];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
+            @autoreleasepool {
+                [processor saveCapture:selectedFileName];
+            }
+        });
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////
+-(void)openDocument:(id)sender
 {
     PacketProcessor *processor = [PacketProcessor sharedProcessor];
     NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
@@ -132,32 +169,6 @@
         NSURL *selectedFileName = [openPanel URL];
         [processor openCapture:selectedFileName];
     }
-}
-///////////////////////////////////////////////////////////////////////////////////////
--(void)didSelectRow:(NSArray*)objects atIndex:(NSInteger)row
-{
-    NSLog(@"selected: %@",objects);
-    PacketProcessor *processor = [PacketProcessor sharedProcessor];
-    IPPacket *packet = (IPPacket*)[processor packetAtIndex:row];
-    NSLog(@"packet: %@",packet);
-    self.outlineDataSource.rootNode = [packet outlineNode];
-    [self.outlineView reloadData];
-}
-///////////////////////////////////////////////////////////////////////////////////////
--(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url
-{
-    NSError *error = nil;
-    NSNumber *isDirectory;
-    if([[url pathExtension] isEqualToString:@"pcap"])
-        return YES;
-    else if([url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error])
-    {
-        if([isDirectory boolValue])
-            return YES;
-        else
-            return NO;
-    }
-    return NO;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(Class)classForObject:(id)object

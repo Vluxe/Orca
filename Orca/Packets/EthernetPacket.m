@@ -10,6 +10,7 @@
 
 #import "EthernetPacket.h"
 #import <netinet/if_ether.h>
+#import <pcap.h>
 
 @implementation EthernetPacket
 
@@ -27,7 +28,8 @@
                        eptr->ether_dhost[0],eptr->ether_dhost[1],eptr->ether_dhost[2],
                        eptr->ether_dhost[3],eptr->ether_dhost[4],eptr->ether_dhost[5]];
         self.packetHeader = packetHeader;
-        self.date = [NSDate date];
+        NSInteger time = self.packetHeader->ts.tv_sec;
+        self.date = [NSDate dateWithTimeIntervalSince1970:time];
     }
     return self;
 }

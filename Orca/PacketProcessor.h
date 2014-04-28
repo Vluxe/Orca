@@ -21,6 +21,11 @@
  */
 -(void)didReceivePackets:(NSArray*)packets;
 
+/**
+ A search query has finished.
+ */
+-(void)didSearchPackets:(NSArray*)packets;
+
 @end
 
 @interface PacketProcessor : NSObject
@@ -76,6 +81,12 @@
  @return a packet that has been processed
  */
 -(EthernetPacket*)packetAtIndex:(NSInteger)index;
+
+/**
+ Search the packets.
+ @param: the search query to process.
+ */
+-(void)runSearch:(NSString*)query;
 
 
 

@@ -12,9 +12,10 @@
 #import "ACTableSource.h"
 #import "ACOutlineSource.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate,NSOpenSavePanelDelegate,ACOutlineSourceDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate,ACTableSourceDelegate,NSOpenSavePanelDelegate,ACOutlineSourceDelegate,NSTextFieldDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSSearchField *searchBar;
 
 @property (nonatomic,strong)IBOutlet NSPopUpButton *popButton;
 @property (nonatomic,strong)IBOutlet NSToolbarItem *captureButton;

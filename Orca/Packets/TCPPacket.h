@@ -13,7 +13,7 @@
 
 @interface TCPPacket : IPPacket
 
-@property(nonatomic, assign)NSInteger tcpSize;
+@property(nonatomic, assign)NSInteger tcpHeaderSize;
 @property(nonatomic, assign)NSInteger srcPort;
 @property(nonatomic, assign)NSInteger dstPort;
 @property(nonatomic, assign)NSInteger sequence;
@@ -25,5 +25,6 @@
 @property(nonatomic, assign)NSInteger urgentPointer;
 @property(nonatomic,strong)NSData *payloadData;
 @property(nonatomic,copy)NSString *payloadString;
+@property(nonatomic, assign)NSInteger payloadLength;
 
 @end

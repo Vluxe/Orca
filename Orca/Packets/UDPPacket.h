@@ -12,10 +12,12 @@
 
 @interface UDPPacket : IPPacket
 
-@property(nonatomic, assign)NSInteger udpSize;
+@property(nonatomic, assign)NSInteger udpHeaderSize;
 @property(nonatomic, assign)NSInteger srcPort;
 @property(nonatomic, assign)NSInteger dstPort;
+@property(nonatomic, assign)NSInteger checksum;
 @property(nonatomic,strong)NSData *payloadData;
 @property(nonatomic,copy)NSString *payloadString;
+@property(nonatomic, assign)NSInteger payloadLength;
 
 @end

@@ -45,21 +45,25 @@
             return self;
         }
         struct tcphdr *tcpHeader = (struct tcphdr*) (packet + offset);
-        int size = tcpHeader->th_off*sizeof(unsigned int);
+        NSInteger size = tcpHeader->th_off*sizeof(unsigned int);
         offset += size;
-        self.tcpSize = size;
+        self.tcpHeaderSize = size;
         self.flags = tcpHeader->th_flags;
         self.sequence = tcpHeader->th_seq;
         self.srcPort = ntohs(tcpHeader->th_sport);
         self.dstPort = ntohs(tcpHeader->th_dport);
-        //NSLog(@"%s",(packet+offset));
-        //NSLog(@"offset: %d",offset);
-        //NSLog(@"total size: %@",self.totalSize);
-        self.payloadData = [NSData dataWithBytes:(packet+(offset)) length:self.totalSize-(offset-ETHER_HDR_LEN)];
-        if(self.payloadData)
-            self.payloadString = [[NSString alloc] initWithData:self.payloadData encoding:NSUTF8StringEncoding];
-        TCPPacketProcessor *processor = [TCPPacketProcessor sharedProcessor];
-        [processor addPacket:self];
+        self.checksum = tcpHeader->th_sum;
+        //u_char *buffer = (u_char*)(tcpHeader+size);
+        NSInteger len = self.totalSize-(self.IPHeaderSize+self.tcpHeaderSize);
+        if(len > 0)
+        {
+            self.payloadLength = len;
+//            self.payloadData = [NSData dataWithBytes:buffer length:len];
+//            if(self.payloadData)
+//                self.payloadString = [[NSString alloc] initWithData:self.payloadData encoding:NSUTF8StringEncoding];
+//            TCPPacketProcessor *processor = [TCPPacketProcessor sharedProcessor];
+//            [processor addPacket:self];
+        }
     }
     return self;
 }
@@ -90,7 +94,17 @@
     [node addNode:srcPort];
     DetailNode *dstPort = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %ld",NSLocalizedString(@"Destination Port", nil),self.dstPort]];
     [node addNode:dstPort];
-    
+    DetailNode *seq = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %ld",NSLocalizedString(@"Sequence", nil),self.sequence]];
+    [node addNode:seq];
+    DetailNode *headerLen = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %ld",NSLocalizedString(@"Header Length", nil),self.tcpHeaderSize]];
+    [node addNode:headerLen];
+    DetailNode *flags = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: 0x%lx",NSLocalizedString(@"Flags", nil),self.flags]];
+    [node addNode:flags];
+    DetailNode *window = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %ld",NSLocalizedString(@"Window", nil),self.window]];
+    [node addNode:window];
+    DetailNode *checksum = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: 0x%lx",NSLocalizedString(@"Checksum", nil),self.checksum]];
+    [node addNode:checksum];
+    //options
     return root;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
