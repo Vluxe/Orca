@@ -9,12 +9,15 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import "TextTableViewCell.h"
+#import "DetailNode.h"
 
 @implementation TextTableViewCell
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 +(CGFloat)tableView:(NSTableView*)tableView rowHeightForObject:(id)object
 {
+    if([object isKindOfClass:[DetailNode class]])
+        return 22;
     return 33;
     /*if(!object)
         return 22;
@@ -77,7 +80,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)setObject:(id)object
 {
-    self.textLabel.text = object;
+    if([object isKindOfClass:[DetailNode class]])
+    {
+        DetailNode *node = object;
+        self.textLabel.text = node.text;
+    }
+    else
+        self.textLabel.text = object;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)setSelected:(BOOL)selected

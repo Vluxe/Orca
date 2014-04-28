@@ -1,0 +1,20 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  DetailNode.h
+//  Orca
+//
+//  Created by Dalton Cherry on 4/27/14.
+//  Copyright (c) 2014 Vluxe. All rights reserved.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#import "ACNode.h"
+
+@interface DetailNode : ACNode
+
+@property(nonatomic,copy)NSString *text;
+
+-(instancetype)initWithText:(NSString*)text;
++(DetailNode*)nodeWithText:(NSString*)text;
+
+@end

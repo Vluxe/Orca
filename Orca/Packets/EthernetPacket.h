@@ -10,6 +10,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 
 #import <Foundation/Foundation.h>
+#import "DetailNode.h"
 
 @interface EthernetPacket : NSObject
 
@@ -20,6 +21,7 @@
 @property(nonatomic)NSDate *date;
 @property(nonatomic,copy,readonly)NSString *protocolName;
 @property(nonatomic,copy,readonly)NSString *infoString;
+@property(nonatomic,readonly)DetailNode *outlineNode;
 
 - (instancetype)initWithPacket:(u_char *)packet packetHeader:(const struct pcap_pkthdr *)packetHeader;
 

@@ -140,6 +140,8 @@
     PacketProcessor *processor = [PacketProcessor sharedProcessor];
     IPPacket *packet = (IPPacket*)[processor packetAtIndex:row];
     NSLog(@"packet: %@",packet);
+    self.outlineDataSource.rootNode = [packet outlineNode];
+    [self.outlineView reloadData];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url

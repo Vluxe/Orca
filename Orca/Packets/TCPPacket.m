@@ -80,5 +80,19 @@
             self.dstMac,self.srcIP,self.dstIP];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+-(DetailNode*)outlineNode
+{
+    DetailNode *root = [super outlineNode];
+    DetailNode *node = [DetailNode nodeWithText:NSLocalizedString(@"TCP Header", nil)];
+    [root addNode:node];
+    
+    DetailNode *srcPort = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %ld",NSLocalizedString(@"Source Port", nil),self.srcPort]];
+    [node addNode:srcPort];
+    DetailNode *dstPort = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %ld",NSLocalizedString(@"Destination Port", nil),self.dstPort]];
+    [node addNode:dstPort];
+    
+    return root;
+}
+///////////////////////////////////////////////////////////////////////////////////////
 
 @end

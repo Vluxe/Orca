@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		075A3540C8BD48D590EE809A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E517D759174FED90843705 /* libPods.a */; };
+		5C413F1D190DF5160092F178 /* DetailNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C413F1C190DF5160092F178 /* DetailNode.m */; };
 		5CAE398818D94DDA0054B955 /* EthernetPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398318D94DDA0054B955 /* EthernetPacket.m */; };
 		5CAE398918D94DDA0054B955 /* IPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398518D94DDA0054B955 /* IPPacket.m */; };
 		5CAE398A18D94DDA0054B955 /* TCPPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE398718D94DDA0054B955 /* TCPPacket.m */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C413F1B190DF5160092F178 /* DetailNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNode.h; sourceTree = "<group>"; };
+		5C413F1C190DF5160092F178 /* DetailNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNode.m; sourceTree = "<group>"; };
 		5CAE398218D94DDA0054B955 /* EthernetPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EthernetPacket.h; sourceTree = "<group>"; };
 		5CAE398318D94DDA0054B955 /* EthernetPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EthernetPacket.m; sourceTree = "<group>"; };
 		5CAE398418D94DDA0054B955 /* IPPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPPacket.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				6BC383CC18C425C400F67B8A /* MainMenu.xib */,
 				6BC383CF18C425C400F67B8A /* Images.xcassets */,
 				6BC383BE18C425C400F67B8A /* Supporting Files */,
+				5C413F1B190DF5160092F178 /* DetailNode.h */,
+				5C413F1C190DF5160092F178 /* DetailNode.m */,
 				5CAE39D918E516250054B955 /* TextTableViewCell.h */,
 				5CAE39DA18E516250054B955 /* TextTableViewCell.m */,
 				5CAE398118D94DDA0054B955 /* Packets */,
@@ -362,6 +367,7 @@
 				5CAE398A18D94DDA0054B955 /* TCPPacket.m in Sources */,
 				5CE3343918F49CDF00CEA610 /* NSDate+OrcaDate.m in Sources */,
 				6BC383CB18C425C400F67B8A /* AppDelegate.m in Sources */,
+				5C413F1D190DF5160092F178 /* DetailNode.m in Sources */,
 				5CAE39DB18E516250054B955 /* TextTableViewCell.m in Sources */,
 				5CE3343218F3A78500CEA610 /* PacketProcessor.m in Sources */,
 				5CE334AD18FE25BD00CEA610 /* TCPPacketProcessor.m in Sources */,

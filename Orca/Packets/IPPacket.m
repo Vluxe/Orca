@@ -74,5 +74,19 @@
             self.dstMac,self.srcIP,self.dstIP];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+-(DetailNode*)outlineNode
+{
+    DetailNode *root = [super outlineNode];
+    DetailNode *node = [DetailNode nodeWithText:NSLocalizedString(@"IP Header", nil)];
+    [root addNode:node];
+    
+    DetailNode *srcIP = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Source", nil),self.srcIP]];
+    [node addNode:srcIP];
+    DetailNode *dstIP = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Destination", nil),self.dstIP]];
+    [node addNode:dstIP];
+    
+    return root;
+}
+///////////////////////////////////////////////////////////////////////////////////////
 
 @end

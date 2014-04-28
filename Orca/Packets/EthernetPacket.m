@@ -42,5 +42,19 @@
     return [NSString stringWithFormat:@"%@ -> %@",self.srcMac,self.dstMac];
 }
 ///////////////////////////////////////////////////////////////////////////////////////
+-(DetailNode*)outlineNode
+{
+    DetailNode *root = [DetailNode new];
+    DetailNode *node = [DetailNode nodeWithText:NSLocalizedString(@"Ethernet Header", nil)];
+    [root addNode:node];
+    
+    DetailNode *srcMac = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Source", nil),self.srcMac]];
+    [node addNode:srcMac];
+    DetailNode *dstMac = [DetailNode nodeWithText:[NSString stringWithFormat:@"%@: %@",NSLocalizedString(@"Destination", nil),self.dstMac]];
+    [node addNode:dstMac];
+    
+    return root;
+}
+///////////////////////////////////////////////////////////////////////////////////////
 
 @end
