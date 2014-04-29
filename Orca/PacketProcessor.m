@@ -241,6 +241,9 @@ void packet_callback(u_char *useless,const struct pcap_pkthdr *pkthdr,const u_ch
 ///////////////////////////////////////////////////////////////////////////////////////
 - (void)openCapture:(NSURL *)fileURL
 {
+    if(self.isCapturing)
+        [self stopCapture];
+    [self.allPackets removeAllObjects];
     char errbuf[PCAP_ERRBUF_SIZE];
     self.descr = pcap_open_offline([[fileURL path] UTF8String], errbuf);
     if(self.descr == NULL)

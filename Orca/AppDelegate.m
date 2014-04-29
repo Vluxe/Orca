@@ -52,12 +52,14 @@
     [self.tableDataSource bindArrays:@[self.time,self.source,self.destination,self.protocol,self.info]
                     toTableView:self.tableView];
     
+    PacketProcessor *processor = [PacketProcessor sharedProcessor];
+    processor.delegate = (id<PacketProcessorDelegate>)self;
+    
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 -(IBAction)startCapture:(id)sender
 {
     PacketProcessor *processor = [PacketProcessor sharedProcessor];
-    processor.delegate = (id<PacketProcessorDelegate>)self;
     if(processor.isCapturing)
     {
         NSLog(@"stopping capture");
@@ -116,11 +118,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)didSelectRow:(NSArray*)objects atIndex:(NSInteger)row
 {
-    PacketProcessor *processor = [PacketProcessor sharedProcessor];
-    IPPacket *packet = (IPPacket*)[processor packetAtIndex:row];
-
-    self.outlineDataSource.rootNode = [packet outlineNode];
-    [self.outlineView reloadData];
+    if(row > -1 && row != NSNotFound)
+    {
+        PacketProcessor *processor = [PacketProcessor sharedProcessor];
+        IPPacket *packet = (IPPacket*)[processor packetAtIndex:row];
+        
+        self.outlineDataSource.rootNode = [packet outlineNode];
+        [self.outlineView reloadData];
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 - (void)controlTextDidChange:(NSNotification *)notification {
@@ -160,6 +165,13 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 -(void)openDocument:(id)sender
 {
+    [self.time removeAllObjects];
+    [self.source removeAllObjects];
+    [self.source removeAllObjects];
+    [self.destination removeAllObjects];
+    [self.protocol removeAllObjects];
+    [self.info removeAllObjects];
+    [self.tableView reloadData];
     PacketProcessor *processor = [PacketProcessor sharedProcessor];
     NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
     [openPanel setCanChooseFiles:YES];
